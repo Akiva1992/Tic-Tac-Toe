@@ -27,4 +27,31 @@ Optional - If you're feeling ambitious, create an AI so that a player can play a
 
 - Once you've gotten that, work on making the computer smart. It is possible to create an unbeatable AI using the minimax algorithm (read about it [here](https://en.wikipedia.org/wiki/Minimax), some googling will help you out with this one).
 
-If you get this running, definitely come show it off in the chatroom. It's quite an accomplishment!
+If you get this running, definitely come show it off in the chatroom. It's quite an accomplishment! <br /> <br /> <br /> <br />
+
+
+
+Gameboard object:
+- Attributes to store the current state of the game board (e.g., a 2D array or a flat array representing the grid).
+- Functions to initialize the game board, creating an empty grid.
+- Functions to update the board when a player makes a move.
+- Functions to check for a winning condition (e.g., three in a row).
+- Functions to check for a draw condition (e.g., when the board is full and no winner).
+- Functions to display the current state of the board.
+- Functions to reset the board for a new game.
+
+Player object:
+- Attributes to store the player's name, symbol (e.g., 'X' or 'O'), and score.
+- Functions to set and retrieve the player's name, symbol, and score.
+- Functions to validate and handle player moves (e.g., selecting a position on the game board).
+- Functions to update the player's score when they win a game.
+- Functions to reset the player's score for a new game.
+- Functions to display player-related information or messages (e.g., displaying the player's name and symbol).
+
+Game flow object:
+- Functions to start the game and initialize the necessary objects (e.g., Gameboard, Player).
+- Functions to alternate between players, allowing them to make moves.
+- Functions to validate and handle player inputs.
+- Functions to determine the game outcome (e.g., a player wins, a draw occurs).
+- Functions to display messages or prompts for players during the game.
+- Functions to handle the overall flow of the game, such as starting a new game or ending the current game.
