@@ -1,26 +1,20 @@
-#players-form{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2rem;
-    border: 0.5px solid black;
-    width: fit-content;
-    margin: auto;
-}
+
 
 .players-container{
     display: flex;
     justify-content: center;
-    /* border: 0.5px solid black; */
 }
 
-.p1-container,
-.p2-container{
+.p1-form,
+.p2-form{
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 1rem;
     padding: 2rem;
 }
+
+
 
 .p1-form-header,
 .p2-form-header{
@@ -37,8 +31,36 @@
     width: fit-content;
 }
 
+
+#radios label {
+	position: relative;
+}
+
+svg {
+	color: blue;
+	height: 2rem;
+	width: 2rem;
+	margin: 0.2rem;
+}
+
+input[type="radio"] {
+	position: absolute;
+	opacity: 0;
+}
+
+input[class="x-radio"]:checked + svg,
+input[class="x-radio"]:hover + svg,
+input[class="x-radio"]:focus + svg
+input[class="o-radio"]:checked + svg,
+input[class="o-radio"]:hover + svg,
+input[class="o-radio"]:focus + svg{
+    color: blueviolet;
+}
+
+
 #cells-container{
     display: flex;
+    /* flex-direction: column; */
     justify-content: center;
     padding: 2rem;
 }
@@ -48,7 +70,6 @@
     min-height: 100px;
     text-align: center;
 }
-
 
 .cell[data-column="1"],
 .cell[data-column="2"]{

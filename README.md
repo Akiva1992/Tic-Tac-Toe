@@ -54,4 +54,25 @@ Game flow object:
 - Functions to validate and handle player inputs.
 - Functions to determine the game outcome (e.g., a player wins, a draw occurs).
 - Functions to display messages or prompts for players during the game.
-- Functions to handle the overall flow of the game, such as starting a new game or ending the current game.
+- Functions to handle the overall flow of the game, such as starting a new game or ending the current game. <br /><br /><br />
+
+const game = (function () {
+
+  const init = () => {
+    // Initialization logic
+    bindEvents();
+  }
+
+  const bindEvents = () => {
+    // Event binding logic
+  }
+
+  const handleError = (message) => {
+    // Error handling logic
+  }
+
+  return { init };
+})();
+
+game.init();
+
