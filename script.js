@@ -17,7 +17,7 @@ const gameBoard = (()=>{
         // input(board,0,0,"x")
         // input(board,0,1,"o")
         // console.log(board)
-        // renderBoard(board)
+        // renderBoard()
     };
 
 
@@ -26,41 +26,68 @@ const gameBoard = (()=>{
         for (let i = 0; i<row; i++){
             board[i] = []
             for(let j = 0; j<row; j++){
-                board[i].push(0);    
+                board[i].push();    
             }
         }
         return board;
     }
 
 
-    const renderBoard = (board)=>{
+    const renderBoard = ()=>{
         const cells = Array.from(document.querySelectorAll(".cell")) //returns 9 divs
         let counter = 0;
+        // debugger
         for (let i = 0; i<row; i++){
             for(let j = 0; j<row; j++ ){
-                cells[counter].textContent = board[j][i];
+                if (board[j][i] === "x"){
+
+                    cells[counter].innerHTML = '';
+
+                    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+                    svg.setAttribute("viewBox", "0 0 24 24");
+        
+                    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                    path.setAttribute("d", "M4,4 L20,20 M20,4 L4,20");
+                    path.setAttribute("stroke", "currentColor");
+                    path.setAttribute("stroke-width", "2");
+                    path.setAttribute("stroke-linecap", "round");
+        
+                    svg.append(path);
+                    cells[counter].append(svg);
+                }else if(board[j][i] === "o"){
+
+                    cells[counter].textContent = "";
+
+                    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+                    svg.setAttribute("viewBox", "0 0 24 24");
+        
+                    const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                    circle.setAttribute("cx", "12");
+                    circle.setAttribute("cy", "12");
+                    circle.setAttribute("r", "10");
+                    circle.setAttribute("stroke", "currentColor");
+                    circle.setAttribute("stroke-width", "2");
+                    circle.setAttribute("fill", "none");
+        
+                    svg.appendChild(circle);
+                    cells[counter].appendChild(svg);
+                }
                 counter++
             }
         }
     }; 
 
-    const getAttr = (row, column)=>{
-        return{
-            row,
-            column
-        }
-    };
 
-    const input = (board,row,column,symbol)=>{
-        // debugger
-        board[row][column]= symbol ;
+    const placeSymbol = (row, column, symbol)=>{
+        board[row][column] = symbol;
+        renderBoard()
     };
 
 
-
+    init()
     
     return{
-        input,
+        placeSymbol,
         init
     }
 
@@ -105,6 +132,7 @@ const gameFlow =(()=>{
     let p1,p2;
     let p1Fvalid = false;
     let p2Fvalid = false;
+    let isXsTurn = true;
     // console.log(symbolOBtn, symbolXBtn)
 
 
@@ -121,9 +149,12 @@ const gameFlow =(()=>{
         p1Form.addEventListener("submit", p1Validity);
         p2Form.addEventListener("submit", p2Validity);
     
-        cells.forEach(cell => {
-            cell.addEventListener("click", playTurn, {once : true});
-        });
+        if (p1Fvalid && p2Fvalid){
+            cells.forEach(cell => {
+                cell.addEventListener("click", playTurn, {once : true});
+            });
+        }
+        
     };
     
     const p1Validity = (e) => {
@@ -170,14 +201,16 @@ const gameFlow =(()=>{
 
     const startGame = () => {
         p2Form.style.display = "none";
+        bindEvents()
     };
 
     const playTurn = (e) => {
-        if (p1Fvalid && p2Fvalid){
             let row = Number(e.target.getAttribute("data-row"))-1;
             let column = Number(e.target.getAttribute("data-column"))-1;
             console.log(row, column)
-        }
+            symbol = (isXsTurn)? "x" : "o";
+            isXsTurn = !isXsTurn
+            gameBoard.placeSymbol(row,column,symbol);
     };
 
     init()

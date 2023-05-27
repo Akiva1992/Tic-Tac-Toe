@@ -37,7 +37,7 @@
 }
 
 svg {
-	color: blue;
+	color: black;
 	height: 2rem;
 	width: 2rem;
 	margin: 0.2rem;
@@ -69,6 +69,10 @@ input[class="o-radio"]:focus + svg{
     min-width: 100px;
     min-height: 100px;
     text-align: center;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .cell[data-column="1"],
