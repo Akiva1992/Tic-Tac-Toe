@@ -1,6 +1,3 @@
-
-// let array = [[0,0,0],[0,0,0],[0,0,0]];
-
 ///////////////////////////////////////////Player Factory/////////////////////////////////////////////////////////////////////
 const PlayerFactory = (name, symbol) =>{
 
@@ -25,12 +22,12 @@ const PlayerFactory = (name, symbol) =>{
 
 };
 
-
 //////////////////////////////Game Flow////////////////////////////////////////////////////////////////////////
 const gameFlow =(()=>{
 
     let cells;
     let turns;
+    let p1Symbol, p2Symbol;
     const p1Form = document.querySelector(".p1-form");
     const p2Form = document.querySelector(".p2-form");
     const p1Name = document.querySelector("#p1-name");
@@ -41,9 +38,6 @@ const gameFlow =(()=>{
     let p1Fvalid = false;
     let p2Fvalid = false;
     let isXsTurn;
-    let board;
-    // console.log(symbolOBtn, symbolXBtn)
-
 
 
 
@@ -91,8 +85,8 @@ const gameFlow =(()=>{
         else {
             p1Fvalid = true;
             name = p1Name.value;
-            symbol = xRadio.checked ? "x" : "o";
-            p1 = PlayerFactory(name, symbol);
+            p1Symbol = xRadio.checked ? "x" : "o";
+            p1 = PlayerFactory(name, p1Symbol);
             nextPlayer();
         }
     };
@@ -112,8 +106,8 @@ const gameFlow =(()=>{
         else {
             p2Fvalid = true;
             name = p2Name.value;
-            symbol = p1.symbol === "x" ? "o" : "x";
-            p2 = PlayerFactory(name, symbol);
+            p2Symbol = p1.symbol === "x" ? "o" : "x";
+            p2 = PlayerFactory(name, p2Symbol);
             startGame();
         }
     };
@@ -126,12 +120,13 @@ const gameFlow =(()=>{
     const playTurn = (e) => {
         let row = Number(e.target.getAttribute("data-row"))-1;
         let column = Number(e.target.getAttribute("data-column"))-1;
-        symbol = (isXsTurn)? "x" : "o";
+        let symbol = (isXsTurn)? "x" : "o";
         turns++
         
         gameBoard.placeSymbol(row,column,symbol);
         board = gameBoard.getBoard().board
         checkGame(row, column)
+        // Don't change position, the winner is determined based on who's turn it is.
         isXsTurn = !isXsTurn
     };
 
@@ -145,7 +140,6 @@ const gameFlow =(()=>{
            }
         }
     };
-
 
     const rowCheck =(row)=>{
         // Row loop
@@ -180,9 +174,13 @@ const gameFlow =(()=>{
     const winner = ()=>{
         removeEvents();
         if (isXsTurn){
-            console.log("X wins")
+            if(p1Symbol === "x"){
+                console.log("Player One is the winner")
+            }else {console.log("Player Two is the winner")}
         }else{
-            console.log("O wins")
+            if(p1Symbol === "o"){
+                console.log("Player One is the winner")
+            }else {console.log("Player Two is the winner")}
         }
     };
 
@@ -190,11 +188,7 @@ const gameFlow =(()=>{
         gameBoard.init();
         init();
     };
-
     init()
-
-    return{
-    }
 })();
 
 /////////////////////////////////Game Board//////////////////////////////////////////////////////////
@@ -304,7 +298,6 @@ const gameBoard = (()=>{
     }
 
 })();
-
 
 ////////////////////////Trial Stuff///////////////////////////////////////
 // const a = (()=>{
