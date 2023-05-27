@@ -41,6 +41,7 @@ const gameFlow =(()=>{
     let p1Fvalid = false;
     let p2Fvalid = false;
     let isXsTurn;
+    let board;
     // console.log(symbolOBtn, symbolXBtn)
 
 
@@ -122,7 +123,61 @@ const gameFlow =(()=>{
         symbol = (isXsTurn)? "x" : "o";
         isXsTurn = !isXsTurn
         turns++
+        
         gameBoard.placeSymbol(row,column,symbol);
+        board = gameBoard.getBoard().board
+        console.log(`board in playTurn ${board}`)
+        checkGame()
+    };
+
+    const checkGame = ()=>{
+        let row = 3;
+        let turns = gameFlow.getTurns()
+        console.log(turns)
+        if (turns > 4){
+            // Row loop
+            for (let i = 0; i<row; i++){
+                for(let j = 0; j<row-2; j++){
+                    console.log(`board in check game ${board[1][0]}`)
+                    if(board[i][j] != ""){
+                    if (board[i][j]===board[i][j+1] && board[i][j] === board[i][j+2]){
+                            winner()
+                            return;
+                        }
+                    }    
+                }
+            }
+            // Column loop
+            for (let i = 0; i<row; i++){
+                for(let j = 0; j<row-2; j++){
+                    if(board[j][i] != ""){
+                    if (board[j][i]===board[j+1][i] && board[j][i] === board[j+2][i]){
+                            winner()
+                            return;
+                        }
+                    }    
+                }
+            }
+
+            // Diagonal loops
+            if (board[0][0]!== ""){
+            if (board[0][0]===board[1][1] && board[0][0]===board[2][2]){
+                    winner()
+                    return
+                }   
+            }
+            if (board[0][2]!== ""){
+            if (board[0][2]===board[1][1] && board[0][2]===board[2][0]){
+                    winner()
+                    return
+                }   
+            }
+        }
+    };
+
+
+    const winner = ()=>{
+        console.log("we've got a winner")
     };
 
     const getTurns = ()=>{
@@ -154,6 +209,7 @@ const gameBoard = (()=>{
         board = createBoard();
         console.log(`Board in init before render ${board}`);
         renderBoard()
+        getBoard()
         console.log(`Board in init after render ${board}`)
 
     };
@@ -215,68 +271,25 @@ const gameBoard = (()=>{
                 counter++
             }
         }
-        checkGame();
+        // checkGame();
     }; 
 
 
     const placeSymbol = (row, column, symbol)=>{
-        board[row][column] = symbol;
-        renderBoard()
+            board[row][column] = symbol;
+            renderBoard()
         return[
             board
         ]
     };
 
 
+    const getBoard = ()=>{
+        return {board}
+    };
+
     
-    const checkGame = ()=>{
-        let turns = gameFlow.getTurns()
-        console.log(turns)
-        console.log(`board in check game ${board}`)
-        if (turns > 4){
-            // Row loop
-            for (let i = 0; i<row; i++){
-                for(let j = 0; j<row-2; j++){
-                    if(board[i][j] != ""){
-                    if (board[i][j]===board[i][j+1] && board[i][j] === board[i][j+2]){
-                            winner()
-                            return;
-                        }
-                    }    
-                }
-            }
-            // Column loop
-            for (let i = 0; i<row; i++){
-                for(let j = 0; j<row-2; j++){
-                    if(board[j][i] != ""){
-                    if (board[j][i]===board[j+1][i] && board[j][i] === board[j+2][i]){
-                            winner()
-                            return;
-                        }
-                    }    
-                }
-            }
 
-            // Diagonal loops
-            if (board[0][0]!== ""){
-            if (board[0][0]===board[1][1] && board[0][0]===board[2][2]){
-                    winner()
-                    return
-                }   
-            }
-            if (board[0][2]!== ""){
-            if (board[0][2]===board[1][1] && board[0][2]===board[2][0]){
-                    winner()
-                    return
-                }   
-            }
-        }
-    };
-
-
-    const winner = ()=>{
-        console.log("we've got a winner")
-    };
     init()
 
     const newGame = ()=>{
@@ -286,30 +299,34 @@ const gameBoard = (()=>{
     return{
         placeSymbol,
         init,
+        getBoard
     }
 
 })();
 
 
 ////////////////////////Trial Stuff///////////////////////////////////////
-const a = (()=>{
-    let n=0;
-    const aTrial = ()=> {
-        n++
-    }
-    aTrial()
-    const bTrial =()=>{
-        return{
-            n     
-        }
-    };
-    return{
-        bTrial
-    }
-})();
+// const a = (()=>{
+//     let n=0;
+//     const aTrial = ()=> {
+//         n++
+//     }
+//     aTrial()
+//     const bTrial =()=>{
+//         return{
+//             n     
+//         }
+//     };
+//     return{
+//         bTrial
+//     }
+// })();
 
 
-const b = (()=>{
-    c = a.bTrial()
-    // console.log(c.n)
-})();
+// const b = (()=>{
+//     c = a.bTrial()
+//     // let b = gameBoard.getBoard().board
+//     // console.log(b)
+//     // let board = gameBoard.placeSymbol()
+//     // console.log(`board in trial ${board}`)
+// })();
