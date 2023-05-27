@@ -69,6 +69,12 @@ const gameFlow =(()=>{
         document.querySelector("#new-game").addEventListener("click", newGame)
         
     };
+
+    const removeEvents = ()=>{
+        cells.forEach(cell => {
+            cell.removeEventListener("click", playTurn);
+        });
+    };
     
     const p1Validity = (e) => {
         e.preventDefault();
@@ -121,67 +127,63 @@ const gameFlow =(()=>{
         let row = Number(e.target.getAttribute("data-row"))-1;
         let column = Number(e.target.getAttribute("data-column"))-1;
         symbol = (isXsTurn)? "x" : "o";
-        isXsTurn = !isXsTurn
         turns++
         
         gameBoard.placeSymbol(row,column,symbol);
         board = gameBoard.getBoard().board
-        console.log(`board in playTurn ${board}`)
-        checkGame()
+        checkGame(row, column)
+        isXsTurn = !isXsTurn
     };
 
-    const checkGame = ()=>{
-        let row = 3;
-        let turns = gameFlow.getTurns()
-        console.log(turns)
+    const checkGame = (row, column)=>{
         if (turns > 4){
-            // Row loop
-            for (let i = 0; i<row; i++){
-                for(let j = 0; j<row-2; j++){
-                    console.log(`board in check game ${board[1][0]}`)
-                    if(board[i][j] != ""){
-                    if (board[i][j]===board[i][j+1] && board[i][j] === board[i][j+2]){
-                            winner()
-                            return;
-                        }
-                    }    
-                }
-            }
-            // Column loop
-            for (let i = 0; i<row; i++){
-                for(let j = 0; j<row-2; j++){
-                    if(board[j][i] != ""){
-                    if (board[j][i]===board[j+1][i] && board[j][i] === board[j+2][i]){
-                            winner()
-                            return;
-                        }
-                    }    
-                }
-            }
+           rowCheck(row)
+           columnCheck(column)
 
-            // Diagonal loops
-            if (board[0][0]!== ""){
-            if (board[0][0]===board[1][1] && board[0][0]===board[2][2]){
-                    winner()
-                    return
-                }   
-            }
-            if (board[0][2]!== ""){
-            if (board[0][2]===board[1][1] && board[0][2]===board[2][0]){
-                    winner()
-                    return
-                }   
-            }
+           if (row === column || row+column === 2){
+            diagonalCheck()
+           }
         }
     };
 
 
-    const winner = ()=>{
-        console.log("we've got a winner")
+    const rowCheck =(row)=>{
+        // Row loop
+        if(board[row][0] !== "" && board[row][0]===board[row][1] && board[row][0] === board[row][2]){
+            winner()
+            
+        }  
     };
 
-    const getTurns = ()=>{
-        return turns;
+    const columnCheck =(column)=>{
+        if(board[0][column] !== "" && board[0][column]===board[1][column] && board[0][column] === board[2][column]){
+            winner()
+            
+        }  
+    };
+
+    const diagonalCheck =()=>{
+        
+        if (board[0][0] !== "" && board[0][0]===board[1][1] && board[0][0]===board[2][2]){
+                winner()
+                
+        }   
+        
+
+        if (board[0][2] !== "" && board[0][2]===board[1][1] && board[0][2]===board[2][0]){
+                winner()
+                
+        }
+             
+    };
+
+    const winner = ()=>{
+        removeEvents();
+        if (isXsTurn){
+            console.log("X wins")
+        }else{
+            console.log("O wins")
+        }
     };
 
     const newGame = ()=>{
@@ -192,7 +194,6 @@ const gameFlow =(()=>{
     init()
 
     return{
-        getTurns
     }
 })();
 
