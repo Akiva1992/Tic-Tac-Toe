@@ -1,99 +1,6 @@
 
 // let array = [[0,0,0],[0,0,0],[0,0,0]];
 
-/////////////////////////////////Game Board//////////////////////////////////////////////////////////
-const gameBoard = (()=>{
-    
-    // Variables
-    let board, row, column;
-
-    const init = ()=>{
-        row = 3;
-        column = 3;
-        board = [];
-        board = createBoard();
-        // console.log(board)
-        // bindEvents();
-        // input(board,0,0,"x")
-        // input(board,0,1,"o")
-        // console.log(board)
-        // renderBoard()
-    };
-
-
-    const createBoard = ()=>{
-        board = [];
-        for (let i = 0; i<row; i++){
-            board[i] = []
-            for(let j = 0; j<row; j++){
-                board[i].push();    
-            }
-        }
-        return board;
-    }
-
-
-    const renderBoard = ()=>{
-        const cells = Array.from(document.querySelectorAll(".cell")) //returns 9 divs
-        let counter = 0;
-        // debugger
-        for (let i = 0; i<row; i++){
-            for(let j = 0; j<row; j++ ){
-                if (board[j][i] === "x"){
-
-                    cells[counter].innerHTML = '';
-
-                    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-                    svg.setAttribute("viewBox", "0 0 24 24");
-        
-                    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-                    path.setAttribute("d", "M4,4 L20,20 M20,4 L4,20");
-                    path.setAttribute("stroke", "currentColor");
-                    path.setAttribute("stroke-width", "2");
-                    path.setAttribute("stroke-linecap", "round");
-        
-                    svg.append(path);
-                    cells[counter].append(svg);
-                }else if(board[j][i] === "o"){
-
-                    cells[counter].textContent = "";
-
-                    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-                    svg.setAttribute("viewBox", "0 0 24 24");
-        
-                    const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-                    circle.setAttribute("cx", "12");
-                    circle.setAttribute("cy", "12");
-                    circle.setAttribute("r", "10");
-                    circle.setAttribute("stroke", "currentColor");
-                    circle.setAttribute("stroke-width", "2");
-                    circle.setAttribute("fill", "none");
-        
-                    svg.appendChild(circle);
-                    cells[counter].appendChild(svg);
-                }
-                counter++
-            }
-        }
-    }; 
-
-
-    const placeSymbol = (row, column, symbol)=>{
-        board[row][column] = symbol;
-        renderBoard()
-    };
-
-
-    init()
-    
-    return{
-        placeSymbol,
-        init
-    }
-
-})();
-
-
 ///////////////////////////////////////////Player Factory/////////////////////////////////////////////////////////////////////
 const PlayerFactory = (name, symbol) =>{
 
@@ -123,6 +30,7 @@ const PlayerFactory = (name, symbol) =>{
 const gameFlow =(()=>{
 
     let cells;
+    let turns;
     const p1Form = document.querySelector(".p1-form");
     const p2Form = document.querySelector(".p2-form");
     const p1Name = document.querySelector("#p1-name");
@@ -132,7 +40,7 @@ const gameFlow =(()=>{
     let p1,p2;
     let p1Fvalid = false;
     let p2Fvalid = false;
-    let isXsTurn = true;
+    let isXsTurn;
     // console.log(symbolOBtn, symbolXBtn)
 
 
@@ -140,6 +48,8 @@ const gameFlow =(()=>{
 
 
     const init = ()=>{
+        turns = 0;
+        isXsTurn = true;
         cells = Array.from(document.querySelectorAll(".cell"));
         bindEvents();
     };
@@ -154,6 +64,8 @@ const gameFlow =(()=>{
                 cell.addEventListener("click", playTurn, {once : true});
             });
         }
+
+        document.querySelector("#new-game").addEventListener("click", newGame)
         
     };
     
@@ -205,41 +117,199 @@ const gameFlow =(()=>{
     };
 
     const playTurn = (e) => {
-            let row = Number(e.target.getAttribute("data-row"))-1;
-            let column = Number(e.target.getAttribute("data-column"))-1;
-            console.log(row, column)
-            symbol = (isXsTurn)? "x" : "o";
-            isXsTurn = !isXsTurn
-            gameBoard.placeSymbol(row,column,symbol);
+        let row = Number(e.target.getAttribute("data-row"))-1;
+        let column = Number(e.target.getAttribute("data-column"))-1;
+        symbol = (isXsTurn)? "x" : "o";
+        isXsTurn = !isXsTurn
+        turns++
+        gameBoard.placeSymbol(row,column,symbol);
+    };
+
+    const getTurns = ()=>{
+        return turns;
+    };
+
+    const newGame = ()=>{
+        gameBoard.init();
+        init();
     };
 
     init()
+
+    return{
+        getTurns
+    }
+})();
+
+/////////////////////////////////Game Board//////////////////////////////////////////////////////////
+const gameBoard = (()=>{
+    
+    // Variables
+    let board, row, column;
+
+    const init = ()=>{
+        row = 3;
+        column = 3;
+        board = [];
+        board = createBoard();
+        console.log(`Board in init before render ${board}`);
+        renderBoard()
+        console.log(`Board in init after render ${board}`)
+
+    };
+
+
+    const createBoard = ()=>{
+        board = [];
+        for (let i = 0; i<row; i++){
+            board[i] = []
+            for(let j = 0; j<row; j++){
+                board[i].push("");    
+            }
+        }
+        return board;
+    }
+
+
+    const renderBoard = ()=>{
+        const cells = Array.from(document.querySelectorAll(".cell")) //returns 9 divs
+        let counter = 0;
+        // debugger
+        for (let i = 0; i<row; i++){
+            for(let j = 0; j<row; j++ ){
+                if (board[j][i] === "x"){
+
+                    cells[counter].innerHTML = '';
+
+                    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+                    svg.setAttribute("viewBox", "0 0 24 24");
+        
+                    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                    path.setAttribute("d", "M4,4 L20,20 M20,4 L4,20");
+                    path.setAttribute("stroke", "currentColor");
+                    path.setAttribute("stroke-width", "2");
+                    path.setAttribute("stroke-linecap", "round");
+        
+                    svg.append(path);
+                    cells[counter].append(svg);
+                }else if(board[j][i] === "o"){
+
+                    cells[counter].textContent = "";
+
+                    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+                    svg.setAttribute("viewBox", "0 0 24 24");
+        
+                    const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                    circle.setAttribute("cx", "12");
+                    circle.setAttribute("cy", "12");
+                    circle.setAttribute("r", "10");
+                    circle.setAttribute("stroke", "currentColor");
+                    circle.setAttribute("stroke-width", "2");
+                    circle.setAttribute("fill", "none");
+        
+                    svg.appendChild(circle);
+                    cells[counter].appendChild(svg);
+                }else{
+                    cells[counter].textContent = "";
+                }
+                counter++
+            }
+        }
+        checkGame();
+    }; 
+
+
+    const placeSymbol = (row, column, symbol)=>{
+        board[row][column] = symbol;
+        renderBoard()
+        return[
+            board
+        ]
+    };
+
+
+    
+    const checkGame = ()=>{
+        let turns = gameFlow.getTurns()
+        console.log(turns)
+        console.log(`board in check game ${board}`)
+        if (turns > 4){
+            // Row loop
+            for (let i = 0; i<row; i++){
+                for(let j = 0; j<row-2; j++){
+                    if(board[i][j] != ""){
+                    if (board[i][j]===board[i][j+1] && board[i][j] === board[i][j+2]){
+                            winner()
+                            return;
+                        }
+                    }    
+                }
+            }
+            // Column loop
+            for (let i = 0; i<row; i++){
+                for(let j = 0; j<row-2; j++){
+                    if(board[j][i] != ""){
+                    if (board[j][i]===board[j+1][i] && board[j][i] === board[j+2][i]){
+                            winner()
+                            return;
+                        }
+                    }    
+                }
+            }
+
+            // Diagonal loops
+            if (board[0][0]!== ""){
+            if (board[0][0]===board[1][1] && board[0][0]===board[2][2]){
+                    winner()
+                    return
+                }   
+            }
+            if (board[0][2]!== ""){
+            if (board[0][2]===board[1][1] && board[0][2]===board[2][0]){
+                    winner()
+                    return
+                }   
+            }
+        }
+    };
+
+
+    const winner = ()=>{
+        console.log("we've got a winner")
+    };
+    init()
+
+    const newGame = ()=>{
+        init();
+    };
+    
+    return{
+        placeSymbol,
+        init,
+    }
+
 })();
 
 
+////////////////////////Trial Stuff///////////////////////////////////////
+const a = (()=>{
+    let n=0;
+    const aTrial = ()=> {
+        n++
+    }
+    aTrial()
+    const bTrial =()=>{
+        return{
+            n     
+        }
+    };
+    return{
+        bTrial
+    }
+})();
 
 
-// const bindEvents = ()=>{
-//     Array.from(document.querySelectorAll(".cell")).forEach(cell=>{
-//         cell.addEventListener("click", playTurn)
-//     }, { once : true});
-// };
-
-// const playTurn = ()=>(symbol,row,column)=>{
-//     board[row][column] = symbol;
-// };
-
-// const symbolSelect = (e)=>{
-//     p1Symbole.targrt.value
-// };
-
-// const startGame = ()=>{
-//     const p1Name = querySelector("#p1-name").value;
-//     const p1Symbol = querySelector("#p1-symbol").value;
-//     const p2Name = querySelector("#p2-name").value;
-
-// };
-
-// const p1 = PlayerFactory("JJ","x");
-
-// console.log(p1.playTurn())
+const b = (()=>{
+    c = a.bTrial()
+    // console.log(c.n)
+})();
