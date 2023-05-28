@@ -5,8 +5,8 @@
     justify-content: center;
 }
 
-.p1-form,
-.p2-form{
+.p1-form.active,
+.p2-form.active{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -14,7 +14,10 @@
     padding: 2rem;
 }
 
-
+.p1-form,
+.p2-form{
+    display: none;
+}
 
 .p1-form-header,
 .p2-form-header{

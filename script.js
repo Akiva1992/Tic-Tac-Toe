@@ -1,23 +1,21 @@
 ///////////////////////////////////////////Player Factory/////////////////////////////////////////////////////////////////////
 const PlayerFactory = (name, symbol) =>{
 
-    let _name = name;
-    const init = ()=>{
 
-        bindEvents()
-    }
+    let score;
 
-
-    const getName = ()=>{return _name};
+     const getName = ()=>{return name};
     const getSymbol = ()=>{return symbol};
-
-    const bindEvents = ()=>{
-
-    };
-
+    const setScore = (score)=>{
+        score = score
+    }
     return{
         getName,
         getSymbol
+    }
+
+    return{
+        setScore
     }
 
 };
@@ -53,6 +51,12 @@ const gameFlow =(()=>{
     const bindEvents = () => {
         p1Form.addEventListener("submit", p1Validity);
         p2Form.addEventListener("submit", p2Validity);
+        p1Name.addEventListener("input", p1nameValidity);
+        p2Name.addEventListener("input", p2nameValidity);
+        xRadio.addEventListener("input", radioValidity);
+        oRadio.addEventListener("input", radioValidity);
+        
+
     
         if (p1Fvalid && p2Fvalid){
             cells.forEach(cell => {
@@ -62,6 +66,28 @@ const gameFlow =(()=>{
 
         document.querySelector("#new-game").addEventListener("click", newGame)
         
+    };
+
+    const p1nameValidity =()=>{
+        if (p1Name.validity.valid){
+            document.querySelector(".p1-name-error").textContent = "";
+        }
+    };
+
+    const p2nameValidity =()=>{
+        if (p2Name.validity.valid){
+            document.querySelector(".p2-name-error").textContent = "";
+        }
+    };
+
+    const RadioValidity =()=>{
+
+    };
+
+    const radioValidity  =()=>{
+        if (xRadio.checked || oRadio.checked) { 
+            document.querySelector(".symbol-error").textContent = "";
+        }
     };
 
     const removeEvents = ()=>{
@@ -75,11 +101,12 @@ const gameFlow =(()=>{
         let symbol, name;
     
         if (!p1Name.validity.valid) { 
-            console.log("Player 1 name is invalid.")
+            document.querySelector(".p1-name-error").textContent = "You must input a name."
+            return;
         }
     
         if (!xRadio.checked && !oRadio.checked) { 
-            console.log("Player 1 symbol is not chosen.")
+            document.querySelector(".symbol-error").textContent = "You must select a symbol."
         }
 
         else {
@@ -92,8 +119,9 @@ const gameFlow =(()=>{
     };
     
     const nextPlayer = () => {
-        p1Form.style.display = "none";
-        p2Form.style.display = "flex";
+        p1Form.classList.remove("active")
+        p2Form.classList.add("active")
+
     };
     
     const p2Validity = (e) => {
@@ -101,7 +129,7 @@ const gameFlow =(()=>{
         let symbol, name;
     
         if (!p2Name.validity.valid) {
-            console.log("Player 2 form is invalid.")
+            document.querySelector(".p2-name-error").textContent = "You must input a name."
         }
         else {
             p2Fvalid = true;
@@ -113,7 +141,7 @@ const gameFlow =(()=>{
     };
 
     const startGame = () => {
-        p2Form.style.display = "none";
+        p2Form.classList.remove("active")
         bindEvents()
     };
 
