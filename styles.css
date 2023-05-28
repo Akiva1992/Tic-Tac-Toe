@@ -1,4 +1,40 @@
+.displays-container{
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 8rem;
+}
 
+.p1-display-container,
+.p2-display-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.game-board{
+    display: none;
+}
+
+.end-page{
+    display:none;
+}
+
+.end-page.active{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.game-board.active{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.p1-display-name,
+.p2-display-name{
+    font-size: 2rem;
+}
 
 .players-container{
     display: flex;

@@ -8,109 +8,138 @@
     <title>Tic Tac Toe</title>
   </head>
   <body>
-    <div class="players-container">
-      <form action="" target="" class="p1-form active" novalidate>
-        <h3 class="p1-form-header">Player One</h3>
-        <div class="name-container">
-          <input
-            type="text"
-            id="p1-name"
-            placeholder="Enter Name"
-            name="name"
-            required
-          />
-          <div class="error-container"><span class="p1-name-error"></span></div>
+
+    <div class="displays-container">
+        <div class="p1-display-container">
+            <h3 class="p1-display-name"></h3>
+            <div class="p1-svg-container"></div>
         </div>
-        <div class="symbols-container">
-          <label for="x-radio">
+        <div class="p2-display-container">
+            <h3 class="p2-display-name"></h3>
+            <div class="p2-svg-container"></div>
+        </div>
+    </div>
+
+    <div class="game-board">
+        <div id="cells-container">
+          <div class="row1-container">
+            <div class="cell1 cell" data-row="1" data-column="1"></div>
+            <div class="cell2 cell" data-row="2" data-column="1"></div>
+            <div class="cell3 cell" data-row="3" data-column="1"></div>
+          </div>
+          <div class="row2-container">
+            <div class="cell4 cell" data-row="1" data-column="2"></div>
+            <div class="cell5 cell" data-row="2" data-column="2"></div>
+            <div class="cell6 cell" data-row="3" data-column="2"></div>
+          </div>
+          <div class="row3-container">
+            <div class="cell7 cell" data-row="1" data-column="3"></div>
+            <div class="cell9 cell" data-row="2" data-column="3"></div>
+            <div class="cell8 cell" data-row="3" data-column="3"></div>
+          </div>
+        </div>
+        <div class="game-board-btns">
+            <button class="play-again-btn">Play Again</button>
+            <button class="fresh-start-btn">Start Fresh</button>
+        </div>
+    </div>
+
+<!-- Popup windows -->
+    <div class="players-container popup">
+        <form action="" target="" class="p1-form" novalidate>
+          <h3 class="p1-form-header">Player One</h3>
+          <div class="name-container">
             <input
-              type="radio"
-              name="symbol"
-              class="x-radio"
-              id="x-radio"
-              value="x"
+              type="text"
+              id="p1-name"
+              placeholder="Enter Name"
+              name="name"
               required
             />
-            <svg viewBox="0 0 24 24">
-                <path
-                  d="M4,4 L20,20 M20,4 L4,20"
+            <div class="error-container"><span class="p1-name-error"></span></div>
+          </div>
+          <div class="symbols-container">
+            <label for="x-radio">
+              <input
+                type="radio"
+                name="symbol"
+                class="x-radio"
+                id="x-radio"
+                value="x"
+                required
+              />
+              <svg viewBox="0 0 24 24">
+                  <path
+                    d="M4,4 L20,20 M20,4 L4,20"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                </svg>
+                
+            </label>
+            <label for="o-radio">
+              <input
+                type="radio"
+                name="symbol"
+                class="o-radio"
+                id="o-radio"
+                value="o"
+                required
+              />
+              <svg viewBox="0 0 24 24">
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="10"
                   stroke="currentColor"
                   stroke-width="2"
-                  stroke-linecap="round"
+                  fill="none"
                 />
               </svg>
-              
-          </label>
-          <label for="o-radio">
+            </label>
+            <div class="error-container"><span class="symbol-error"></span></div>
+          </div>
+          <button id="next-p-btn" class="btn">Next→</button>
+        </form>
+  
+        <form
+          action=""
+          target=""
+          class="p2-form"
+          novalidate
+        >
+          <h3 class="p2-form-header">Player Two</h3>
+          <div class="name-container">
             <input
-              type="radio"
-              name="symbol"
-              class="o-radio"
-              id="o-radio"
-              value="o"
+              type="text"
+              id="p2-name"
+              placeholder="Enter Name"
+              name="name"
+              value="B"
               required
             />
-            <svg viewBox="0 0 24 24">
-              <circle
-                cx="12"
-                cy="12"
-                r="10"
-                stroke="currentColor"
-                stroke-width="2"
-                fill="none"
-              />
-            </svg>
-          </label>
-          <div class="error-container"><span class="symbol-error"></span></div>
+            <div class="error-container"><span class="p2-name-error"></span></div>
+          </div>
+          <div class="symbols-container">
+            <!-- <input type="button" id="p2-symbol-x" class="p2-symbol-btn x" name="x" value="x">
+                                  <input type="button" id="p2-symbol-o" class="p2-symbol-btn o" name="o" value="o"> -->
+            <input type="submit" id="start-game" class="btn" value="Start" />
         </div>
-        <button id="next-p-btn" class="btn">Next→</button>
-      </form>
+    </form>
+</div>
 
-      <form
-        action=""
-        target=""
-        class="p2-form"
-        novalidate
-      >
-        <h3 class="p2-form-header">Player Two</h3>
-        <div class="name-container">
-          <input
-            type="text"
-            id="p2-name"
-            placeholder="Enter Name"
-            name="name"
-            value="B"
-            required
-          />
-          <div class="error-container"><span class="p2-name-error"></span></div>
-        </div>
-        <div class="symbols-container">
-          <!-- <input type="button" id="p2-symbol-x" class="p2-symbol-btn x" name="x" value="x">
-                                <input type="button" id="p2-symbol-o" class="p2-symbol-btn o" name="o" value="o"> -->
-          <input type="submit" id="start-game" class="btn" value="Start" />
-        </div>
-      </form>
+<div class="end-page popup">
+    <h1 class="winner-msg"></h1>
+    <h3 class="score-update"></h3>
+    <div class="end-game-btns">
+        <button class="play-again-btn2">Play Again</button>
+        <button class="fresh-start-btn2">Start Fresh</button>
     </div>
+</div>
 
-    <div id="cells-container">
-      <div class="row1-container">
-        <div class="cell1 cell" data-row="1" data-column="1"></div>
-        <div class="cell2 cell" data-row="2" data-column="1"></div>
-        <div class="cell3 cell" data-row="3" data-column="1"></div>
-      </div>
-      <div class="row2-container">
-        <div class="cell4 cell" data-row="1" data-column="2"></div>
-        <div class="cell5 cell" data-row="2" data-column="2"></div>
-        <div class="cell6 cell" data-row="3" data-column="2"></div>
-      </div>
-      <div class="row3-container">
-        <div class="cell7 cell" data-row="1" data-column="3"></div>
-        <div class="cell9 cell" data-row="2" data-column="3"></div>
-        <div class="cell8 cell" data-row="3" data-column="3"></div>
-      </div>
-    </div>
 
-    <button id="new-game">New Game</button>
-    <script src="./script.js"></script>
-  </body>
+
+<script src="./script.js"></script>
+</body>
 </html>
