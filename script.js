@@ -395,4 +395,6 @@ const gameBoard = (()=>{
 
 })();
 
+
+// ai trial
 // console.log(gameFlow.xSvgMaker())
