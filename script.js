@@ -246,20 +246,18 @@ const gameFlow = (() => {
   };
 
   const aiPlayTurn = () => {
-    let currentRow = Math.floor(Math.random() * 3);
-    let currentColumn = Math.floor(Math.random() * 3);
+
+    let emptyCells = cells.filter(cell => cell.textContent === "");
+    let cell = emptyCells[Math.floor(Math.random()*emptyCells.length)];
+
+    let currentRow = Number(cell.getAttribute("data-row"));
+    let currentColumn = Number(cell.getAttribute("data-column"));
     let symbol = "o"
 
-    // Makes sure the cell is empty and if so places it and checks game.
-    if (board[currentRow][currentColumn] === "") {
-      gameBoard.placeSymbol(currentRow, currentColumn, symbol);
-      checkGame(currentRow, currentColumn, symbol);
-      isXsTurn = !isXsTurn;
-      turns++;
-    } else {
-        // Loops the function until random numbers work.
-        aiPlayTurn();
-    }
+    gameBoard.placeSymbol(currentRow, currentColumn, symbol);
+    checkGame(currentRow, currentColumn, symbol);
+    isXsTurn = !isXsTurn;
+    turns++;
   };
 
   //////////////////////////Check Game/////////////////////////////////////////
