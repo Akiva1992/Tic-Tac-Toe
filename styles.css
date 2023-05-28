@@ -42,7 +42,8 @@
 }
 
 .p1-form.active,
-.p2-form.active{
+.p2-form.active,
+.single-p-form.active{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -51,7 +52,8 @@
 }
 
 .p1-form,
-.p2-form{
+.p2-form,
+.single-p-form{
     display: none;
 }
 
@@ -105,6 +107,8 @@ input[class="o-radio"]:focus + svg{
 }
 
 .cell{
+    position: relative;
+    z-index: 1;
     min-width: 100px;
     min-height: 100px;
     text-align: center;
@@ -114,12 +118,16 @@ input[class="o-radio"]:focus + svg{
     justify-content: center;
 }
 
-.cell[data-column="1"],
-.cell[data-column="2"]{
+svg{
+    position: relative;
+}
+
+.cell[data-column="0"],
+.cell[data-column="1"]{
     border-right: 0.5px solid black;
 }
 
-.cell[data-row="1"],
-.cell[data-row="2"]{
+.cell[data-row="0"],
+.cell[data-row="1"]{
     border-bottom: 0.5px solid black;
 }
