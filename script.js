@@ -247,7 +247,7 @@ const gameFlow = (() => {
 
   const aiPlayTurn = () => {
 
-    let emptyCells = cells.filter(cell => cell.textContent === "");
+    let emptyCells = cells.filter(cell => cell.children.length === 0);
     let cell = emptyCells[Math.floor(Math.random()*emptyCells.length)];
 
     let currentRow = Number(cell.getAttribute("data-row"));

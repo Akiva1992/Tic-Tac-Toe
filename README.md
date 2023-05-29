@@ -56,23 +56,61 @@ Game flow object:
 - Functions to display messages or prompts for players during the game.
 - Functions to handle the overall flow of the game, such as starting a new game or ending the current game. <br /><br /><br />
 
-const game = (function () {
 
-  const init = () => {
-    // Initialization logic
-    bindEvents();
-  }
+| Original Name    | Suggested Name        | Type     | Suggested Placement  |
+|------------------|-----------------------|----------|----------------------|
+| PlayerFactory    | createPlayerFactory   | Function | Player Factory       |
+| getName          | getPlayerName         | Function | Player Factory       |
+| getSymbol        | getPlayerSymbol       | Function | Player Factory       |
+| setScore         | setPlayerScore        | Function | Player Factory       |
+| getScore         | getPlayerScore        | Function | Player Factory       |
+| gameFlow         | gameFlow              | Variable | Game Flow            |
+| cells            | cells                 | Variable | Game Flow            |
+| turns            | turns                 | Variable | Game Flow            |
+| p1Symbol         | p1Symbol              | Variable | Game Flow            |
+| p2Symbol         | p2Symbol              | Variable | Game Flow            |
+| p1               | p1                    | Variable | Game Flow            |
+| p2               | p2                    | Variable | Game Flow            |
+| p1Fvalid         | p1FormValid           | Variable | Game Flow            |
+| p2Fvalid         | p2FormValid           | Variable | Game Flow            |
+| isXsTurn         | isXsTurn              | Variable | Game Flow            |
+| p1Form           | player1Form           | Variable | Game Flow            |
+| p2Form           | player2Form           | Variable | Game Flow            |
+| p1Name           | player1Name           | Variable | Game Flow            |
+| p2Name           | player2Name           | Variable | Game Flow            |
+| xRadio           | xRadio                | Variable | Game Flow            |
+| oRadio           | oRadio                | Variable | Game Flow            |
+| init             | initializeGameFlow    | Function | Game Flow            |
+| playAgainInit    | initializePlayAgain   | Function | Game Flow            |
+| bindEvents       | bindEventListeners    | Function | Game Flow            |
+| removeEvents     | removeEventListeners  | Function | Game Flow            |
+| p1nameValidity   | validatePlayer1Name   | Function | Game Flow            |
+| p2nameValidity   | validatePlayer2Name   | Function | Game Flow            |
+| radioValidity    | validateRadioInput    | Function | Game Flow            |
+| p1Validity       | validatePlayer1       | Function | Game Flow            |
+| nextPlayer       | switchPlayer          | Function | Game Flow            |
+| p2Validity       | validatePlayer2       | Function | Game Flow            |
+| startGame        | startGame             | Function | Game Flow            |
+| playTurn         | playTurn              | Function | Game Flow            |
+| checkGame        | checkGame             | Function | Game Flow            |
+| rowCheck         | checkRow              | Function | Game Flow            |
+| columnCheck      | checkColumn           | Function | Game Flow            |
+| diagonalCheck    | checkDiagonal         | Function | Game Flow            |
+| winner           | declareWinner         | Function | Game Flow            |
+| displayWinner    | displayWinner         | Function | Game Flow            |
+| playAgain        | playAgain             | Function | Game Flow            |
+| freshStart       | freshStart            | Function | Game Flow            |
+| gameBoard        | gameBoard             | Variable | Game Board           |
+| board            | board                 | Variable | Game Board           |
+| row              | row                   | Variable | Game Board           |
+| column           | column                | Variable | Game Board           |
+| init             | initializeGameBoard   | Function | Game Board           |
+| createBoard      | createBoard           | Function | Game Board           |
+| renderBoard      | renderBoard           | Function | Game Board           |
+| xSvgMaker        | createXSymbol         | Function | Game Board           |
+| oSvgMaker        | createOSymbol         | Function | Game Board           |
+| placeSymbol      | placeSymbol           | Function | Game Board           |
+| getBoard         | getBoard              | Function | Game Board           |
+| newGame          | newGame               | Function | Game Board           |
 
-  const bindEvents = () => {
-    // Event binding logic
-  }
-
-  const handleError = (message) => {
-    // Error handling logic
-  }
-
-  return { init };
-})();
-
-game.init();
 
