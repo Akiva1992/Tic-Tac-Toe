@@ -1,19 +1,16 @@
-.displays-container{
+.players-info-container{
     display: flex;
     justify-content: space-between;
     padding: 0.5rem 8rem;
 }
 
-.p1-display-container,
-.p2-display-container{
+.p1-info-container,
+.p2-info-container{
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.game-board{
-    display: none;
-}
 
 .end-page{
     display:none;
@@ -25,7 +22,11 @@
     align-items: center;
 }
 
-.game-board.active{
+.board-container{
+    display: none;
+}
+
+.board-container.active{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -36,14 +37,29 @@
     font-size: 2rem;
 }
 
-.players-container{
+.start-screen-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: auto;
+    gap: 2rem;
+}
+
+.start-screen-container.hide{
+    display: none;
+}
+
+.start-screen-headers-container{
     display: flex;
     justify-content: center;
+    gap: 2rem;
+    cursor: default;
 }
 
 .p1-form.active,
 .p2-form.active,
-.single-p-form.active{
+.p-vs-ai-container.active,
+.p-vs-p-container.active{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -51,9 +67,11 @@
     padding: 2rem;
 }
 
+
 .p1-form,
 .p2-form,
-.single-p-form{
+.p-vs-ai-container,
+.p-vs-p-container{
     display: none;
 }
 

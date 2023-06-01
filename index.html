@@ -10,18 +10,18 @@
 </head>
 
 <body>
-  <div class="displays-container">
-    <div class="p1-display-container">
+  <div class="players-info-container">
+    <div class="p1-info-container">
       <h3 class="p1-display-name"></h3>
       <div class="p1-svg-container"></div>
     </div>
-    <div class="p2-display-container">
+    <div class="p2-info-container">
       <h3 class="p2-display-name"></h3>
       <div class="p2-svg-container"></div>
     </div>
   </div>
 
-  <div class="game-board">
+  <div class="board-container">
     <div id="cells-container">
       <div class="row1-container">
         <div class="cell1 cell" data-row="0" data-column="0"></div>
@@ -46,9 +46,12 @@
   </div>
 
   <!-- Popup windows -->
-  <div class="players-container popup">
-    <div class="player-vs-ai-container">
-      <h2 class="p-vs-ai-header">player vs. ai</h2>
+  <div class="start-screen-container popup">
+  <div class="start-screen-headers-container">
+    <h2 class="p-vs-ai-header">player vs. ai</h2>
+    <h2 class="p-vs-p-header">player vs. player</h2>
+  </div>
+    <div class="p-vs-ai-container">
       <form action="" target="" class="single-p-form" novalidate>
         <h3 class="single-p-header">Enter you name:</h3>
         <div class="name-container">
@@ -63,7 +66,6 @@
       </form>
     </div>
     <div class="p-vs-p-container">
-      <h2 class="p-vs-p-header">player vs. player</h2>
       <form action="" target="" class="p1-form" novalidate>
         <h3 class="p1-form-header">Player One</h3>
         <div class="name-container">
