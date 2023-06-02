@@ -1078,6 +1078,8 @@ const gameBoard = (() => {
     appendToBoard,
     placeSymbol,
     initBoard,
+    xSvgMaker,
+    oSvgMaker
   };
 })();
 
@@ -1163,9 +1165,47 @@ const pageManager = (() => {
     document.querySelector(".start-screen-container").classList.add("hide");
   };
 
+  const showStartScreen = () =>{
+    document.querySelector(".start-screen-container").classList.remove("hide");
+  };
+
   const showBoard = () => {
     document.querySelector(".board-container").classList.add("active");
     hideStartScreen();
+  };
+
+  const displayPlayersOnPage = (p1IsX, singlePlayerGame)=>{
+    document.querySelector(".p1-display-name").textContent = p1.getName();
+    document.querySelector(".p2-display-name").textContent = p2.getName();
+
+    if (p1IsX || singlePlayerGame ) {
+      gameBoard.xSvgMaker(document.querySelector(".p1-svg-container"));
+      gameBoard.oSvgMaker(document.querySelector(".p2-svg-container"));
+    } else {
+      gameBoard.xSvgMaker(document.querySelector(".p2-svg-container"));
+      gameBoard.oSvgMaker(document.querySelector(".p1-svg-container"));
+    }
+  };
+
+  const hideBoard = () => {
+    document.querySelector(".board-container").classList.remove("active");
+  };
+
+  const clearAllData = ()=>{
+    document.querySelector(".winner-msg").textContent = "";
+    document.querySelector(".score-update").textContent = "";
+    document.querySelector(".p1-display-name").textContent = "";
+    document.querySelector(".p2-display-name").textContent = "";
+    document.querySelector(".p1-svg-container").textContent = "";
+    document.querySelector(".p2-svg-container").textContent = "";
+  };
+
+  const hideEndPage = ()=>{
+    document.querySelector(".end-page").classList.remove("active");
+  };
+
+  const showEndPage = ()=>{
+    document.querySelector(".end-page").classList.add("active");
   };
 
   const singlePlayerFormSubmission = (e) => {
@@ -1184,8 +1224,12 @@ const pageManager = (() => {
       singlePlayerGame = true;
       p1 = PlayerFactory(name, p1Symbol);
       p2 = PlayerFactory("AI", "o");
+      displayPlayersOnPage(p1IsX,singlePlayerGame);
       gameFlow.startSinglePlayerGame();
+      singlePForm.reset();
+  
     }
+
   };
 
   const p1FormSubmission = (e) => {
@@ -1203,7 +1247,6 @@ const pageManager = (() => {
         "You must select a symbol.";
     } else {
       singlePlayerGame = false;
-
       name = p1Name.value;
       p1Symbol = xRadio.checked ? "x" : "o";
       p1IsX = xRadio.checked ? true : false;
@@ -1227,11 +1270,14 @@ const pageManager = (() => {
         name = p2Name.value;
         p2Symbol = p1.symbol === "x" ? "o" : "x";
         p2 = PlayerFactory(name, p2Symbol);
-
+        displayPlayersOnPage(p1IsX,singlePlayerGame);
+        hideStartScreen();
+        p1Form.classList.add("active");
         p2Form.classList.remove("active");
-
         showBoard();
-        startGame();
+        p1Form.reset();
+        p2Form.reset();
+        gameFlow.startMultiplePlayerGame()
       }
     }
   };
@@ -1266,6 +1312,12 @@ const pageManager = (() => {
   return {
     newGame,
     showBoard,
+    showStartScreen,
+    hideBoard,
+    displayPlayersOnPage,
+    showEndPage,
+    hideEndPage,
+    clearAllData
   };
 })();
 
@@ -1418,20 +1470,47 @@ const aiModule = (() => {
 
 //----------------Game Flow--------------------//
 const gameFlow = (() => {
-  let singlePlayerGame, cells, isXsTurn, board;
+
+  let singlePlayerGame, cells, isXsTurn, board, p1IsX;
   let turns = 0;
   const human = "x";
   const ai = "o";
 
   const initNewGame = () => {
+    initPlayAgain();
+    pageManager.hideBoard();
+    pageManager.showStartScreen();
+    pageManager.clearAllData();
+  };
+  
+  const initPlayAgain = () => {
+    turns = 0;
+    isXsTurn = true;
     gameBoard.initBoard();
-    cells = Array.from(document.querySelectorAll(".cell"));
-    console.log(cells);
     board = gameBoard.getCurrentBoard();
-    bindEventListeners();
+    cells = Array.from(document.querySelectorAll(".cell"));
+    bindGeneralEventListeners();
+    pageManager.hideEndPage()
+    if (singlePlayerGame){
+      bindSingleGameCellEvents()
+    }
+    else{
+      bindMultipleGameEvents();
+    }
   };
 
-  const bindEventListeners = () => {};
+  const bindGeneralEventListeners = ()=>{
+    Array.from(document.querySelectorAll(".play-again-btn")).forEach( btn =>{
+      btn.addEventListener("click", initPlayAgain)
+    });
+
+    Array.from(document.querySelectorAll(".new-game-btn")).forEach( btn =>{
+      btn.addEventListener("click", initNewGame)
+    });
+
+  };
+
+  const bindMultipleGameEvents = () => {};
 
   //----------------Single Player Game--------------------//
   const bindSingleGameCellEvents = () => {
@@ -1440,7 +1519,14 @@ const gameFlow = (() => {
     });
   };
 
+  const removeEvents = () => {
+    cells.forEach((cell) => {
+      cell.removeEventListener("click", singlePlayerTurn);
+    });
+  };
+
   const startSinglePlayerGame = () => {
+    singlePlayerGame = true;
     bindSingleGameCellEvents();
     isXsTurn = true;
   };
@@ -1477,10 +1563,42 @@ const gameFlow = (() => {
     }
   };
 
+
+  //----------------Multiple Player Game--------------------//
+
+  const bindMultiplePlayersGameCellEvents = () => {
+    cells.forEach((cell) => {
+      cell.addEventListener("click", multiplePTurn);
+    });
+  };
+
+  const startMultiplePlayerGame = ()=>{
+    singlePlayerGame = false;
+    bindMultiplePlayersGameCellEvents()
+    isXsTurn = true;
+  };
+
+
+  const multiplePTurn = (e) => {
+    let currentRow = Number(e.currentTarget.getAttribute("data-row"));
+    let currentColumn = Number(e.currentTarget.getAttribute("data-column"));
+    board = gameBoard.getCurrentBoard();
+
+    // Makes sure cell is empty.
+    if (board[currentRow][currentColumn] === "") {
+      let symbol = isXsTurn ? "x" : "o";
+      turns++;
+
+      gameBoard.placeSymbol(currentRow, currentColumn, symbol);
+      checkGame(currentRow, currentColumn, symbol);
+      isXsTurn = !isXsTurn;
+    }
+  };
+
   //------------------Check Game------------------//
   const checkGame = (row, column, symbol) => {
     if (turns > 4) {
-      debugger
+      // debugger
       let checkRowVar = checkRow(row, symbol);
       let checkColumnVar = checkColumn(column, symbol);
       let checkDiagonalVar = false;
@@ -1493,8 +1611,6 @@ const gameFlow = (() => {
     }
     
   };
-
-
 
   //Individual Checkers
   const checkRow = (row, symbol) => {
@@ -1526,7 +1642,7 @@ const gameFlow = (() => {
     if (
       board[0][0] !== "" &&
       board[0][0] === board[1][1] &&
-      board[0][0] === board[2][2]
+      board[1][1] === board[2][2]
     ) {
       winner(symbol);
       return true
@@ -1535,7 +1651,7 @@ const gameFlow = (() => {
     else if (
       board[0][2] !== "" &&
       board[0][2] === board[1][1] &&
-      board[0][2] === board[2][0]
+      board[1][1] === board[2][0]
     ) {
       winner(symbol);
       return true
@@ -1543,9 +1659,10 @@ const gameFlow = (() => {
     else {return false}
   };
 
-  // debugger
+  //------------------Win or Tie-------------------------//
   const winner = (symbol) => {
-    // removeEvents();
+    debugger
+    removeEvents();
     // gameDone = true;
 
     if (singlePlayerGame) {
@@ -1558,10 +1675,15 @@ const gameFlow = (() => {
       } else {
         displayWinner("tie", "tie");
       }
-    } else {
+    }
+
+    else if (symbol === "tie"){
+      displayWinner("tie","tie")
+    }
+
+    else {
       if (symbol === "x") {
         if (p1IsX) {
-          console.log("Player One is the winner");
           // Must be before displayWinner().
           p1.setScore();
           displayWinner(p1, p2);
@@ -1598,8 +1720,7 @@ const gameFlow = (() => {
         ".score-update"
       ).textContent = `The score is ${wScore} for ${winnerName} and ${lScore} for ${loserName} !!`;
 
-      document.querySelector(".end-page").classList.add("active");
-
+      pageManager.showEndPage();
     } else {
       winnerName = winner.getName();
       loserName = loser.getName();
@@ -1613,16 +1734,15 @@ const gameFlow = (() => {
         ".score-update"
       ).textContent = `The score is ${wScore} for ${winnerName} and ${lScore} for ${loserName} !!`;
       
-      document.querySelector(".end-page").classList.add("active");
+      pageManager.showEndPage();
     }
   };
-
-  const startNewGame = () => {};
 
   initNewGame();
 
   return {
     startSinglePlayerGame,
+    startMultiplePlayerGame
   };
 })();
 
