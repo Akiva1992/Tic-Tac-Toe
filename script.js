@@ -1110,7 +1110,7 @@ const PlayerFactory = (name, symbol) => {
 };
 
 const pageManager = (() => {
-  let singlePlayerGame;
+  let singlePlayerGame,p1IsX;
 
   const p1Form = document.querySelector(".p1-form");
   const p1Name = document.querySelector("#p1-name");
