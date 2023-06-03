@@ -1162,9 +1162,16 @@ const pageManager = (() => {
     document.querySelector(".player-one-svg").classList.remove("active");
     document.querySelector(".player-two-svg").classList.remove("active");
 
-
+    p1Form.classList.add("active");
+    p2Form.classList.remove("active");
+    
+    document.querySelector(".p1-name-error").textContent ="";
+    document.querySelector(".p2-name-error").textContent ="";
+    document.querySelector(".symbol-error").textContent ="";
+    p1Form.reset();
+    p2Form.reset();
   };
-
+  
   const showMultiplePlayerForm = () => {
     document.querySelector(".p-vs-p-container").classList.add("active");
     document.querySelector(".p-vs-p-header").classList.add("active");
@@ -1175,8 +1182,10 @@ const pageManager = (() => {
     document.querySelector(".p-vs-ai-header").classList.remove("active");
     document.querySelector(".single-player-svg").classList.remove("active");
     document.querySelector(".ai-svg").classList.remove("active");
-  
-  
+
+    document.querySelector(".single-p-name-error").textContent ="";
+    singlePForm.reset();
+    
   };
 
   const hideStartScreen = () => {
@@ -1233,7 +1242,7 @@ const pageManager = (() => {
 
     if (!singlePName.validity.valid) {
       document.querySelector(".single-p-name-error").textContent =
-        "You must input a name.";
+        "*You must input a name";
       return;
     } else {
       pageManager.showBoard();
@@ -1254,15 +1263,23 @@ const pageManager = (() => {
     e.preventDefault();
     let name;
 
+    if (!p1Name.validity.valid && !xRadio.checked && !oRadio.checked){
+      document.querySelector(".p1-name-error").textContent ="*You must input a name";
+      document.querySelector(".symbol-error").textContent ="*Please select a symbol";
+      return;
+
+    }
+
     if (!p1Name.validity.valid) {
       document.querySelector(".p1-name-error").textContent =
-        "You must input a name.";
+        "*You must input a name";
       return;
     }
 
     if (!xRadio.checked && !oRadio.checked) {
       document.querySelector(".symbol-error").textContent =
-        "You must select a symbol.";
+        "*Please select a symbol";
+      return
     } else {
       singlePlayerGame = false;
       name = p1Name.value;
@@ -1282,7 +1299,7 @@ const pageManager = (() => {
 
       if (!p2Name.validity.valid) {
         document.querySelector(".p2-name-error").textContent =
-          "You must input a name.";
+          "*You must input a name";
       } else {
         singlePlayerGame = false;
         name = p2Name.value;

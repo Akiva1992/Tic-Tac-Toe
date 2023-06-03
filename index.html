@@ -20,145 +20,146 @@
     <span class="header-txt">Tic-Tac-Toe</span>
   
   </header>
-  <div class="header"></div>
-  <div class="players-info-container">
-    <div class="p1-info-container">
-      <h3 class="p1-display-name"></h3>
-      <div class="p1-svg-container"></div>
-    </div>
-    <div class="p2-info-container">
-      <h3 class="p2-display-name"></h3>
-      <div class="p2-svg-container"></div>
-    </div>
-  </div>
-
-  <div class="board-container">
-    <div id="cells-container">
-      <div class="row1-container">
-        <div class="cell1 cell" data-row="0" data-column="0"></div>
-        <div class="cell2 cell" data-row="1" data-column="0"></div>
-        <div class="cell3 cell" data-row="2" data-column="0"></div>
+  <div class="main-content">
+    <div class="players-info-container">
+      <div class="p1-info-container">
+        <h3 class="p1-display-name"></h3>
+        <div class="p1-svg-container"></div>
       </div>
-      <div class="row2-container">
-        <div class="cell4 cell" data-row="0" data-column="1"></div>
-        <div class="cell5 cell" data-row="1" data-column="1"></div>
-        <div class="cell6 cell" data-row="2" data-column="1"></div>
-      </div>
-      <div class="row3-container">
-        <div class="cell7 cell" data-row="0" data-column="2"></div>
-        <div class="cell9 cell" data-row="1" data-column="2"></div>
-        <div class="cell8 cell" data-row="2" data-column="2"></div>
+      <div class="p2-info-container">
+        <h3 class="p2-display-name"></h3>
+        <div class="p2-svg-container"></div>
       </div>
     </div>
-    <div class="game-board-btns">
-      <button class="new-game-btn btn">New Game</button>
-      <button class="play-again-btn btn" >Play Again</button>
+    <div class="board-container">
+      <div id="cells-container">
+        <div class="row1-container">
+          <div class="cell1 cell" data-row="0" data-column="0"></div>
+          <div class="cell2 cell" data-row="1" data-column="0"></div>
+          <div class="cell3 cell" data-row="2" data-column="0"></div>
+        </div>
+        <div class="row2-container">
+          <div class="cell4 cell" data-row="0" data-column="1"></div>
+          <div class="cell5 cell" data-row="1" data-column="1"></div>
+          <div class="cell6 cell" data-row="2" data-column="1"></div>
+        </div>
+        <div class="row3-container">
+          <div class="cell7 cell" data-row="0" data-column="2"></div>
+          <div class="cell9 cell" data-row="1" data-column="2"></div>
+          <div class="cell8 cell" data-row="2" data-column="2"></div>
+        </div>
+      </div>
+      <div class="game-board-btns">
+        <button class="new-game-btn btn">New Game</button>
+        <button class="play-again-btn btn" >Play Again</button>
+      </div>
     </div>
-  </div>
-
-  <!-- Popup windows -->
-  <div class="start-screen-container popup">
-  <div class="start-screen-headers-container">
-    <div class="p-vs-ai-header active">
-      <h2 class="one-p-header">
-        <svg xmlns="http://www.w3.org/2000/svg" class="single-player-svg icon active" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Popup windows -->
+    <div class="start-screen-container popup">
+    <div class="start-screen-headers-container">
+      <div class="p-vs-ai-header active">
+        <h2 class="one-p-header">
+          <svg xmlns="http://www.w3.org/2000/svg" class="single-player-svg icon active" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
+            <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
+          </svg>
+          <span class="vs-span">vs.</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="ai-svg icon active" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M3 5a1 1 0 0 1 1 -1h16a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-16a1 1 0 0 1 -1 -1v-10z"></path>
+            <path d="M7 20h10"></path>
+            <path d="M9 16v4"></path>
+            <path d="M15 16v4"></path>
+         </svg>
+        </h2>
+      </div>
+      <div class="p-vs-p-header">
+        <h2 class="two-p-header">
+          <svg xmlns="http://www.w3.org/2000/svg" class="player-one-svg icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
           <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
           <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
           <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
         </svg>
         <span class="vs-span">vs.</span>
-        <svg xmlns="http://www.w3.org/2000/svg" class="ai-svg icon active" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <svg xmlns="http://www.w3.org/2000/svg" class="player-two-svg icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
           <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-          <path d="M3 5a1 1 0 0 1 1 -1h16a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-16a1 1 0 0 1 -1 -1v-10z"></path>
-          <path d="M7 20h10"></path>
-          <path d="M9 16v4"></path>
-          <path d="M15 16v4"></path>
-       </svg>
+          <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
+          <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
+        </svg>
       </h2>
+      </div>
     </div>
-    <div class="p-vs-p-header">
-      <h2 class="two-p-header">       
-        <svg xmlns="http://www.w3.org/2000/svg" class="player-one-svg icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-        <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
-        <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
-      </svg>
-      <span class="vs-span">vs.</span>
-      <svg xmlns="http://www.w3.org/2000/svg" class="player-two-svg icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-        <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
-        <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
-      </svg>
-    </h2>
+      <div class="p-vs-ai-container">
+        <form action="" target="" class="single-p-form" novalidate>
+          <div class="name-container">
+            <h3 class="single-p-header">What should we call you?</h3>
+            <input type="text" id="single-p-name" placeholder="Enter Name" name="name" required />
+            <div class="error-container">
+              <span class="single-p-name-error error"></span>
+            </div>
+          </div>
+          <div class="btn-container">
+            <input type="submit" id="start-game-btn1" class="btn" value="START" />
+          </div>
+        </form>
+      </div>
+      <div class="p-vs-p-container">
+        <form action="" target="" class="p1-form" novalidate>
+          <div class="name-container">
+            <h3 class="p1-form-header">Player one's name:</h3>
+            <input type="text" id="p1-name" placeholder="Enter Name" name="name" required />
+            <div class="error-container">
+              <span class="p1-name-error error"></span>
+            </div>
+          </div>
+          <div class="symbols-container">
+            <h3 class="select-symbol">Select symbol</h3>
+            <div class="symbols-inner-container">
+              <label for="x-radio">
+                <input type="radio" name="symbol" class="x-radio" id="x-radio" value="x" required />
+                <svg viewBox="0 0 24 24">
+                  <path d="M4,4 L20,20 M20,4 L4,20" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                </svg>
+              </label>
+              <label for="o-radio">
+                <input type="radio" name="symbol" class="o-radio" id="o-radio" value="o" required />
+                <svg viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none" />
+                </svg>
+              </label>
+            </div>
+            <div class="error-container">
+              <span class="symbol-error error"></span>
+            </div>
+          </div>
+          <button id="next-p-btn" class="btn">NEXT</button>
+        </form>
+        <form action="" target="" class="p2-form" novalidate>
+          <div class="name-container">
+            <h3 class="p2-form-header">Player two's name:</h3>
+            <input type="text" id="p2-name" placeholder="Enter Name" name="name" required />
+            <div class="error-container">
+              <span class="p2-name-error error"></span>
+            </div>
+          </div>
+          <div class="btn-container">
+            <input type="submit" id="start-game-btn2" class="btn" value="Start" />
+          </div>
+        </form>
+      </div>
     </div>
-  </div>
-    <div class="p-vs-ai-container">
-      <form action="" target="" class="single-p-form" novalidate>
-        <h3 class="single-p-header">Enter your name here</h3>
-        <div class="name-container">
-          <input type="text" id="single-p-name" placeholder="Enter Name" name="name" required />
-          <div class="error-container">
-            <span class="single-p-name-error"></span>
-          </div>
-        </div>
-        <div class="btn-container">
-          <input type="submit" id="start-game-btn1" class="btn" value="START" />
-        </div>
-      </form>
-    </div>
-    <div class="p-vs-p-container">
-      <form action="" target="" class="p1-form" novalidate>
-        <h3 class="p1-form-header">Player One</h3>
-        <div class="name-container">
-          <input type="text" id="p1-name" placeholder="Enter Name" name="name" required />
-          <div class="error-container">
-            <span class="p1-name-error"></span>
-          </div>
-        </div>
-        <div class="symbols-container">
-          <label for="x-radio">
-            <input type="radio" name="symbol" class="x-radio" id="x-radio" value="x" required />
-            <svg viewBox="0 0 24 24">
-              <path d="M4,4 L20,20 M20,4 L4,20" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-            </svg>
-          </label>
-          <label for="o-radio">
-            <input type="radio" name="symbol" class="o-radio" id="o-radio" value="o" required />
-            <svg viewBox="0 0 24 24">
-              <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none" />
-            </svg>
-          </label>
-          <div class="error-container">
-            <span class="symbol-error"></span>
-          </div>
-        </div>
-        <button id="next-p-btn" class="btn">Next→</button>
-      </form>
-      <form action="" target="" class="p2-form" novalidate>
-        <h3 class="p2-form-header">Player Two</h3>
-        <div class="name-container">
-          <input type="text" id="p2-name" placeholder="Enter Name" name="name" value="Rx" required />
-          <div class="error-container">
-            <span class="p2-name-error"></span>
-          </div>
-        </div>
-        <div class="btn-container">
-          <input type="submit" id="start-game-btn2" class="btn" value="Start" />
-        </div>
-      </form>
+    <div class="end-page popup">
+      <h1 class="winner-msg"></h1>
+      <h3 class="score-update"></h3>
+      <div class="end-game-btns">
+        <button class="new-game-btn btn">New Game</button>
+        <button class="play-again-btn btn">Play Again</button>
+      </div>
     </div>
   </div>
 
-  <div class="end-page popup">
-    <h1 class="winner-msg"></h1>
-    <h3 class="score-update"></h3>
-    <div class="end-game-btns">
-      <button class="new-game-btn btn">New Game</button>
-      <button class="play-again-btn btn">Play Again</button>
-    </div>
-  </div>
-
-  <footer><span class="footer-txt"></span></footer>
+  <footer><span class="footer-txt">aKiva © 2023</span></footer>
   <script src="./script.js"></script>
 </body>
 
