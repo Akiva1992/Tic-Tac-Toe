@@ -1,3 +1,291 @@
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role='list'],
+ol[role='list'] {
+  list-style: none;
+}
+
+/* Set core root defaults */
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+/* Set core body defaults */
+body {
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+   scroll-behavior: auto;
+  }
+  
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* -----------------General Styling----------------------- */
+
+:root{
+    --ff:'Mulish',Verdana ,sans-serif;
+
+    --fs-300: 0.8rem;
+    --fs-400: clamp(1rem 0.2vw + 1rem 1.5rem);
+    --fs-500: clamp(1.25rem 0.2vw + 1.25rem 2rem);
+    --fs-600: clamp(1.8rem 0.2vw + 1.8rem 2.5rem);
+    --fs-600: 1.8rem;
+
+    --fc: var(--primary-dark-clr);
+
+
+    --padding-300: 0.5rem;
+    --padding-400: clamp(0.8rem, 0.8rem + 0.5vw, 1rem);
+    --padding-500: clamp(1rem, 1rem + 0.5vw, 1.25rem);
+    --padding-600: clamp(1rem, 1.5rem + 0.5vw, 1.8rem);
+
+    --shadow:
+    0.1px 0.1px 0.8px rgba(0, 0, 0, 0.095),
+    1px 1px 6px rgba(0, 0, 0, 0.19)
+  ;
+
+    --primary-light-clr: #fdfffd;
+    --primary-dark-clr: #282927d3;
+    --secondary-clr: #63a7ff9f;
+    --accent-clr: #ff298d98;
+
+    --border-radius: 0.2rem;
+    --border: 0.05rem solid var(--primary-dark-clr);
+
+}
+
+
+
+body{
+    font-family: var(--ff);
+    background-color: var(--primary-clr);
+    color: var(--fc);
+}
+
+
+svg {
+	color: var(--primary-dark-clr);
+	height: 2rem;
+	width: 2rem;
+	margin: 0.2rem;
+}
+
+.btn {
+    background-color: var(--secondary-clr);
+    border-radius: 0.2rem;
+    /* border: var(--border); */
+    border: none;
+    padding: calc(var(--padding-300) - 0.2rem) calc(var(--padding-400) - 0.2rem );
+    color: var(--primary-light-clr);
+}
+
+.cell{
+    position: relative;
+    z-index: 1;
+    min-width: 100px;
+    min-height: 100px;
+    text-align: center;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+svg{
+    position: relative;
+}
+
+/* ---------Header----------- */
+
+header{
+    display: flex;
+    font-style: italic;
+    font-weight: 700;
+    align-items: center;
+    justify-content: center;
+    padding: var(--padding-300);
+    box-shadow: var(--shadow);
+}
+
+.logo-svg{
+    color: var(--accent-clr);
+}
+
+header span {
+    font-size: var(--fs-600);
+}
+
+
+/* ----------Start Screen------------------ */
+
+.start-screen-container.hide{
+    display: none;
+}
+.start-screen-container{
+    border: var(--border);
+    width: 80%;
+    margin: auto;
+    border-radius: var(--border-radius);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.start-screen-headers-container{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    border-bottom: 0.002px solid #2829272e;
+    align-items: center;
+    cursor: default;
+}
+
+.p-vs-ai-container,
+.p-vs-p-container{
+    display: none;
+}
+.p-vs-ai-container.active,
+.p-vs-p-container.active{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 196px;
+}
+
+.p-vs-ai-header,
+.p-vs-p-header{
+    width: 50%;
+}
+
+.p-vs-ai-header.active,
+.p-vs-p-header.active{
+    color: var(--accent-clr);
+    border-bottom: 1.5px solid var(--accent-clr);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.one-p-header,
+.two-p-header{
+    text-align: center;
+    font-size: var(--fs-500);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.vs-span{
+    font-size: 2rem;
+}
+
+.icon{
+	color: var(--primary-dark-clr);
+	height: 2rem;
+	width: 2rem;
+	margin: 0.2rem;
+    stroke-width: 1px;
+}
+
+.player-one-svg.active,
+.player-two-svg.active,
+.single-player-svg.active,
+.ai-svg.active{
+    color: var(--accent-clr);
+}
+
+
+/* ---------------Forms-------------------- */
+
+.p1-form,
+.p2-form{
+    display: none;
+}
+
+.p1-form.active,
+.p2-form.active,
+.single-p-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: var(--padding-300) var(--padding-400);
+}
+
+
+.symbols-container{
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+
+
+
+.single-p-header,
+.p1-form-header,
+.p2-form-header{
+    text-align: center;
+}
+
 .players-info-container{
     display: flex;
     justify-content: space-between;
@@ -37,54 +325,8 @@
     font-size: 2rem;
 }
 
-.start-screen-container{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin: auto;
-    gap: 2rem;
-}
-
-.start-screen-container.hide{
-    display: none;
-}
-
-.start-screen-headers-container{
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    cursor: default;
-}
-
-.p1-form.active,
-.p2-form.active,
-.p-vs-ai-container.active,
-.p-vs-p-container.active{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    padding: 2rem;
-}
 
 
-.p1-form,
-.p2-form,
-.p-vs-ai-container,
-.p-vs-p-container{
-    display: none;
-}
-
-.p1-form-header,
-.p2-form-header{
-    text-align: center;
-}
-
-.symbols-container{
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-}
 
 .btn{
     width: fit-content;
@@ -95,12 +337,6 @@
 	position: relative;
 }
 
-svg {
-	color: black;
-	height: 2rem;
-	width: 2rem;
-	margin: 0.2rem;
-}
 
 input[type="radio"] {
 	position: absolute;
@@ -124,21 +360,7 @@ input[class="o-radio"]:focus + svg{
     padding: 2rem;
 }
 
-.cell{
-    position: relative;
-    z-index: 1;
-    min-width: 100px;
-    min-height: 100px;
-    text-align: center;
-    margin: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
 
-svg{
-    position: relative;
-}
 
 .cell[data-column="0"],
 .cell[data-column="1"]{

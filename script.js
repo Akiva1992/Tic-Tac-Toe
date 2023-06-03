@@ -1152,13 +1152,31 @@ const pageManager = (() => {
   };
 
   const showSinglePlayerForm = () => {
+    document.querySelector(".p-vs-ai-header").classList.add("active");
     document.querySelector(".p-vs-ai-container").classList.add("active");
+    document.querySelector(".single-player-svg").classList.add("active");
+    document.querySelector(".ai-svg").classList.add("active");
+    
     document.querySelector(".p-vs-p-container").classList.remove("active");
+    document.querySelector(".p-vs-p-header").classList.remove("active");
+    document.querySelector(".player-one-svg").classList.remove("active");
+    document.querySelector(".player-two-svg").classList.remove("active");
+
+
   };
 
   const showMultiplePlayerForm = () => {
     document.querySelector(".p-vs-p-container").classList.add("active");
+    document.querySelector(".p-vs-p-header").classList.add("active");
+    document.querySelector(".player-one-svg").classList.add("active");
+    document.querySelector(".player-two-svg").classList.add("active");
+    
     document.querySelector(".p-vs-ai-container").classList.remove("active");
+    document.querySelector(".p-vs-ai-header").classList.remove("active");
+    document.querySelector(".single-player-svg").classList.remove("active");
+    document.querySelector(".ai-svg").classList.remove("active");
+  
+  
   };
 
   const hideStartScreen = () => {
