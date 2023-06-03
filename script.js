@@ -1110,7 +1110,7 @@ const PlayerFactory = (name, symbol) => {
 };
 
 const pageManager = (() => {
-  let singlePlayerGame,MultiplePlayerGame,p1IsX;
+  let singlePlayerGame,multiplePlayerGame,p1IsX;
 
   const p1Form = document.querySelector(".p1-form");
   const p1Name = document.querySelector("#p1-name");
@@ -1230,6 +1230,9 @@ const pageManager = (() => {
     document.querySelector(".p2-display-name").textContent = "";
     document.querySelector(".p1-svg-container").textContent = "";
     document.querySelector(".p2-svg-container").textContent = "";
+
+    singlePlayerGame = null;
+    multiplePlayerGame = null;
   };
 
   const hideEndPage = ()=>{
@@ -1349,8 +1352,12 @@ const pageManager = (() => {
     }
   };
 
-  const getGameType = ()=>{
+  const getSinglePGameType = ()=>{
     return singlePlayerGame
+  }
+
+  const getMultiplePGameType = ()=>{
+    return multiplePlayerGame
   }
 
   newGame();
@@ -1364,7 +1371,8 @@ const pageManager = (() => {
     showEndPage,
     hideEndPage,
     clearAllData,
-    getGameType
+    getSinglePGameType,
+    getMultiplePGameType
   };
 })();
 
@@ -1531,6 +1539,8 @@ const gameFlow = (() => {
     pageManager.clearAllData();
     p1ScoreSpan.textContent = 0;
     p2ScoreSpan.textContent = 0;
+    MultiplePlayerGame = false;
+  
     // singlePlayerGame = false;
   };
   
@@ -1544,8 +1554,8 @@ const gameFlow = (() => {
     pageManager.hideEndPage();
     p1ScoreSpan.classList.remove("active");
     p2ScoreSpan.classList.remove("active");
-    singlePlayerGame = pageManager.getGameType()
-    MultiplePlayerGame = (pageManager.getGameType() === false) ? true : false;
+    singlePlayerGame = pageManager.getSinglePGameType();
+    MultiplePlayerGame = pageManager.getMultiplePGameType();
     if (singlePlayerGame){
       bindSingleGameCellEvents()
     }
