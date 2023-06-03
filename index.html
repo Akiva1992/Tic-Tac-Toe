@@ -1,30 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="./styles.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet" />
   <title>Tic Tac Toe</title>
 </head>
-
 <body>
   <header>
     <svg class="logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-      <path d="M4,8 L20,8 M4,16 L20,16 M8,4 L8,20 M16,4 L16,20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-    </svg>       
+      <path d="M4,8 L20,8 M4,16 L20,16 M8,4 L8,20 M16,4 L16,20" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+    </svg>
     <span class="header-txt">Tic-Tac-Toe</span>
-  
   </header>
   <div class="main-content">
     <div class="players-info-container">
       <div class="p1-info-container">
         <h3 class="p1-display-name"></h3>
         <div class="p1-svg-container"></div>
+      </div>
+      <div class="score-container">
+        <span class="p1-score-span">0</span>
+        <span class="score-txt">-SCORE-</span>
+        <span class="p2-score-span">0</span>
       </div>
       <div class="p2-info-container">
         <h3 class="p2-display-name"></h3>
@@ -51,45 +53,45 @@
       </div>
       <div class="game-board-btns">
         <button class="new-game-btn btn">New Game</button>
-        <button class="play-again-btn btn" >Play Again</button>
+        <button class="play-again-btn btn">Play Again</button>
       </div>
     </div>
     <!-- Popup windows -->
     <div class="start-screen-container popup">
-    <div class="start-screen-headers-container">
-      <div class="p-vs-ai-header active">
-        <h2 class="one-p-header">
-          <svg xmlns="http://www.w3.org/2000/svg" class="single-player-svg icon active" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-            <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
-            <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
-          </svg>
-          <span class="vs-span">vs.</span>
-          <svg xmlns="http://www.w3.org/2000/svg" class="ai-svg icon active" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-            <path d="M3 5a1 1 0 0 1 1 -1h16a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-16a1 1 0 0 1 -1 -1v-10z"></path>
-            <path d="M7 20h10"></path>
-            <path d="M9 16v4"></path>
-            <path d="M15 16v4"></path>
-         </svg>
-        </h2>
+      <div class="start-screen-headers-container">
+        <div class="p-vs-ai-header active">
+          <h2 class="one-p-header">
+            <svg xmlns="http://www.w3.org/2000/svg" class="single-player-svg icon active" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+              <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
+              <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
+            </svg>
+            <span class="vs-span">vs.</span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="ai-svg icon active" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+              <path d="M3 5a1 1 0 0 1 1 -1h16a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-16a1 1 0 0 1 -1 -1v-10z"></path>
+              <path d="M7 20h10"></path>
+              <path d="M9 16v4"></path>
+              <path d="M15 16v4"></path>
+            </svg>
+          </h2>
+        </div>
+        <div class="p-vs-p-header">
+          <h2 class="two-p-header">
+            <svg xmlns="http://www.w3.org/2000/svg" class="player-one-svg icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+              <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
+              <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
+            </svg>
+            <span class="vs-span">vs.</span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="player-two-svg icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+              <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
+              <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
+            </svg>
+          </h2>
+        </div>
       </div>
-      <div class="p-vs-p-header">
-        <h2 class="two-p-header">
-          <svg xmlns="http://www.w3.org/2000/svg" class="player-one-svg icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-          <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
-          <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
-        </svg>
-        <span class="vs-span">vs.</span>
-        <svg xmlns="http://www.w3.org/2000/svg" class="player-two-svg icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-          <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
-          <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
-        </svg>
-      </h2>
-      </div>
-    </div>
       <div class="p-vs-ai-container">
         <form action="" target="" class="single-p-form" novalidate>
           <div class="name-container">
@@ -114,24 +116,26 @@
             </div>
           </div>
           <div class="symbols-container">
-            <h3 class="select-symbol">Select symbol</h3>
             <div class="symbols-inner-container">
-              <label for="x-radio">
-                <input type="radio" name="symbol" class="x-radio" id="x-radio" value="x" required />
-                <svg viewBox="0 0 24 24">
-                  <path d="M4,4 L20,20 M20,4 L4,20" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-                </svg>
-              </label>
-              <label for="o-radio">
-                <input type="radio" name="symbol" class="o-radio" id="o-radio" value="o" required />
-                <svg viewBox="0 0 24 24">
-                  <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none" />
-                </svg>
-              </label>
+              <h3 class="select-symbol">Select symbol:</h3>
+              <div class="symbols">
+                <label for="x-radio">
+                  <input type="radio" name="symbol" class="x-radio" id="x-radio" value="x" required />
+                  <svg viewBox="0 0 24 24">
+                    <path d="M4,4 L20,20 M20,4 L4,20" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                  </svg>
+                </label>
+                <label for="o-radio">
+                  <input type="radio" name="symbol" class="o-radio" id="o-radio" value="o" required />
+                  <svg viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none" />
+                  </svg>
+                </label>
+              </div>
             </div>
-            <div class="error-container">
-              <span class="symbol-error error"></span>
-            </div>
+          </div>
+          <div class="error-container">
+            <span class="symbol-error error"></span>
           </div>
           <button id="next-p-btn" class="btn">NEXT</button>
         </form>
@@ -158,9 +162,9 @@
       </div>
     </div>
   </div>
-
-  <footer><span class="footer-txt">aKiva © 2023</span></footer>
+  <footer>
+    <span class="footer-txt">aKiva © 2023</span>
+  </footer>
   <script src="./script.js"></script>
 </body>
-
 </html>

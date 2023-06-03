@@ -1124,6 +1124,9 @@ const pageManager = (() => {
   const xRadio = document.querySelector(".x-radio");
   const oRadio = document.querySelector(".o-radio");
 
+  let scoreContainer = document.querySelector(".score-container");
+  let p2ScoreSpan = document.querySelector(".p2-score-span");
+
   const newGame = () => {
     document.querySelector(".p-vs-ai-container").classList.add("active");
     document.querySelector(".p1-form").classList.add("active");
@@ -1198,6 +1201,7 @@ const pageManager = (() => {
 
   const showBoard = () => {
     document.querySelector(".board-container").classList.add("active");
+    scoreContainer.classList.add("active")
     hideStartScreen();
   };
 
@@ -1216,6 +1220,7 @@ const pageManager = (() => {
 
   const hideBoard = () => {
     document.querySelector(".board-container").classList.remove("active");
+    scoreContainer.classList.remove("active")
   };
 
   const clearAllData = ()=>{
@@ -1510,12 +1515,17 @@ const gameFlow = (() => {
   let turns = 0;
   const human = "x";
   const ai = "o";
-
+  let p1ScoreSpan = document.querySelector(".p1-score-span");
+  let p2ScoreSpan = document.querySelector(".p2-score-span");
+  
   const initNewGame = () => {
     initPlayAgain();
     pageManager.hideBoard();
     pageManager.showStartScreen();
     pageManager.clearAllData();
+    p1ScoreSpan.textContent = 0;
+    p2ScoreSpan.textContent = 0;
+    singlePlayerGame = false;
   };
   
   const initPlayAgain = () => {
@@ -1525,12 +1535,14 @@ const gameFlow = (() => {
     board = gameBoard.getCurrentBoard();
     cells = Array.from(document.querySelectorAll(".cell"));
     bindGeneralEventListeners();
-    pageManager.hideEndPage()
+    pageManager.hideEndPage();
+    p1ScoreSpan.classList.remove("active");
+    p2ScoreSpan.classList.remove("active");
     if (singlePlayerGame){
       bindSingleGameCellEvents()
     }
     else{
-      bindMultipleGameEvents();
+      bindMultiplePlayersGameCellEvents()
     }
   };
 
@@ -1545,8 +1557,7 @@ const gameFlow = (() => {
 
   };
 
-  const bindMultipleGameEvents = () => {};
-
+  
   //----------------Single Player Game--------------------//
   const bindSingleGameCellEvents = () => {
     cells.forEach((cell) => {
@@ -1554,7 +1565,7 @@ const gameFlow = (() => {
     });
   };
 
-  const removeEvents = () => {
+  const removeEventsSingleP = () => {
     cells.forEach((cell) => {
       cell.removeEventListener("click", singlePlayerTurn);
     });
@@ -1567,20 +1578,21 @@ const gameFlow = (() => {
   };
 
   const singlePlayerTurn = (e) => {
-    singlePlayerGame = true;
-    let currentRow = Number(e.currentTarget.getAttribute("data-row"));
-    let currentColumn = Number(e.currentTarget.getAttribute("data-column"));
-    board = gameBoard.getCurrentBoard();
-    console.log(board);
+    if (singlePlayerGame){
+      let currentRow = Number(e.currentTarget.getAttribute("data-row"));
+      let currentColumn = Number(e.currentTarget.getAttribute("data-column"));
+      board = gameBoard.getCurrentBoard();
+      console.log(board);
 
-    // Makes sure cell is empty.
-    if (board[currentRow][currentColumn] === "") {
-      turns++;
+      // Makes sure cell is empty.
+      if (board[currentRow][currentColumn] === "") {
+        turns++;
 
-      gameBoard.placeSymbol(currentRow, currentColumn, human);
-      checkGame(currentRow, currentColumn, human);
-      console.log(turns)
-      aiTurn();
+        gameBoard.placeSymbol(currentRow, currentColumn, human);
+        checkGame(currentRow, currentColumn, human);
+        console.log(turns)
+        aiTurn();
+      }
     }
   };
 
@@ -1607,10 +1619,18 @@ const gameFlow = (() => {
     });
   };
 
+  const removeEventsMultipleP = ()=>{
+    cells.forEach((cell) => {
+      cell.removeEventListener("click", multiplePTurn);
+    });
+  };
+
   const startMultiplePlayerGame = ()=>{
     singlePlayerGame = false;
     bindMultiplePlayersGameCellEvents()
     isXsTurn = true;
+    const p1Symbol = p1.getSymbol();
+    p1IsX = p1Symbol === "x" ? true : false;
   };
 
 
@@ -1696,17 +1716,16 @@ const gameFlow = (() => {
 
   //------------------Win or Tie-------------------------//
   const winner = (symbol) => {
-    debugger
-    removeEvents();
-    // gameDone = true;
+    removeEventsSingleP();
+    removeEventsMultipleP();
 
     if (singlePlayerGame) {
       if (symbol === "x") {
         p1.setScore();
-        displayWinner(p1, p2);
+        displayWinner(p1, p2, symbol);
       } else if (symbol === "o") {
         p2.setScore();
-        displayWinner(p2, p1);
+        displayWinner(p2, p1, symbol);
       } else {
         displayWinner("tie", "tie");
       }
@@ -1721,56 +1740,87 @@ const gameFlow = (() => {
         if (p1IsX) {
           // Must be before displayWinner().
           p1.setScore();
-          displayWinner(p1, p2);
+          displayWinner(p1, p2, symbol);
         } else {
           console.log("Player Two is the winner");
           p2.setScore();
-          displayWinner(p2, p1);
+          displayWinner(p2, p1, symbol);
         }
       } else {
         if (p1Symbol === "o") {
           console.log("Player One is the winner");
           p1.setScore();
-          displayWinner(p1, p2);
+          displayWinner(p1, p2, symbol);
         } else {
           console.log("Player Two is the winner");
           p2.setScore();
-          displayWinner(p2, p1);
+          displayWinner(p2, p1, symbol);
         }
       }
     }
   };
 
-  const displayWinner = (winner, loser) => {
-    winnerName = p1.getName();
-    loserName = p2.getName();
-    wScore = p1.getScore();
-    lScore = p2.getScore();
-    
+  const displayWinner = (winner, loser,symbol) => {
 
     if (winner === "tie") {
+      let p1Name = p1.getName();
+      let p2Name = p2.getName();
+      let wScore = p1.getScore();
+      let lScore = p2.getScore();
       document.querySelector(".winner-msg").textContent = "It's A Tie";
-
-      document.querySelector(
-        ".score-update"
-      ).textContent = `The score is ${wScore} for ${winnerName} and ${lScore} for ${loserName} !!`;
-
+      document.querySelector(".score-update").textContent = `The score is ${wScore} for ${p1Name} and ${lScore} for ${p2Name} !!`;
+    
+      p1ScoreSpan.textContent = wScore;
+      p2ScoreSpan.textContent = lScore;
+      startScoreAnimation();
       pageManager.showEndPage();
-    } else {
-      winnerName = winner.getName();
-      loserName = loser.getName();
-      wScore = winner.getScore();
-      lScore = loser.getScore();
+    
+  } else {
+      let winnerName = winner.getName();
+      let loserName = loser.getName();
+      let wScore = winner.getScore();
+      let lScore = loser.getScore();
 
-      document.querySelector(
-        ".winner-msg"
-      ).textContent = `${winnerName} is the winner!!`;
-      document.querySelector(
-        ".score-update"
-      ).textContent = `The score is ${wScore} for ${winnerName} and ${lScore} for ${loserName} !!`;
+      document.querySelector(".winner-msg").textContent = `${winnerName} is the winner!!`;
+      document.querySelector(".score-update").textContent = `The score is ${wScore} for ${winnerName} and ${lScore} for ${loserName} !!`;
       
+      if (singlePlayerGame && symbol === "o"){
+        p2ScoreSpan.textContent = wScore;
+        p1ScoreSpan.textContent = lScore;
+        startScoreAnimation();
+
+      }
+      else if (singlePlayerGame && symbol === "x"){
+        p1ScoreSpan.textContent = wScore;
+        p2ScoreSpan.textContent = lScore;
+        startScoreAnimation();
+        
+      }
+      else if (!singlePlayerGame && p1IsX && symbol === "x"){
+        p1ScoreSpan.textContent = wScore;
+        p2ScoreSpan.textContent = lScore;
+        startScoreAnimation();
+      }
+      else if (!singlePlayerGame && p1IsX && symbol === "o"){
+        p2ScoreSpan.textContent = wScore;
+        p1ScoreSpan.textContent = lScore;
+      }
+      else if (!singlePlayerGame && !p1IsX && symbol === "x"){
+        p2ScoreSpan.textContent = wScore;
+        p1ScoreSpan.textContent = lScore;
+      }
+      else if (!singlePlayerGame && !p1IsX && symbol === "o"){
+        p1ScoreSpan.textContent = wScore;
+        p2ScoreSpan.textContent = lScore;
+      }
+
       pageManager.showEndPage();
     }
+  };
+
+  const startScoreAnimation =()=>{
+    p1ScoreSpan.classList.add("active");
+    p2ScoreSpan.classList.add("active");
   };
 
   initNewGame();
