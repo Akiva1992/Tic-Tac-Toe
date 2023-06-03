@@ -1110,7 +1110,7 @@ const PlayerFactory = (name, symbol) => {
 };
 
 const pageManager = (() => {
-  let singlePlayerGame,p1IsX;
+  let singlePlayerGame,MultiplePlayerGame,p1IsX;
 
   const p1Form = document.querySelector(".p1-form");
   const p1Name = document.querySelector("#p1-name");
@@ -1254,6 +1254,7 @@ const pageManager = (() => {
       name = singlePName.value;
       p1Symbol = "x";
       singlePlayerGame = true;
+      MultiplePlayerGame = false;
       p1 = PlayerFactory(name, p1Symbol);
       p2 = PlayerFactory("AI", "o");
       displayPlayersOnPage(p1IsX,singlePlayerGame);
@@ -1287,6 +1288,7 @@ const pageManager = (() => {
       return
     } else {
       singlePlayerGame = false;
+      MultiplePlayerGame = true;
       name = p1Name.value;
       p1Symbol = xRadio.checked ? "x" : "o";
       p1IsX = xRadio.checked ? true : false;
@@ -1347,6 +1349,10 @@ const pageManager = (() => {
     }
   };
 
+  const getGameType = ()=>{
+    return singlePlayerGame
+  }
+
   newGame();
 
   return {
@@ -1357,7 +1363,8 @@ const pageManager = (() => {
     displayPlayersOnPage,
     showEndPage,
     hideEndPage,
-    clearAllData
+    clearAllData,
+    getGameType
   };
 })();
 
@@ -1510,8 +1517,7 @@ const aiModule = (() => {
 
 //----------------Game Flow--------------------//
 const gameFlow = (() => {
-
-  let singlePlayerGame, cells, isXsTurn, board, p1IsX;
+  let singlePlayerGame, cells, isXsTurn, board, p1IsX,MultiplePlayerGame;
   let turns = 0;
   const human = "x";
   const ai = "o";
@@ -1525,7 +1531,7 @@ const gameFlow = (() => {
     pageManager.clearAllData();
     p1ScoreSpan.textContent = 0;
     p2ScoreSpan.textContent = 0;
-    singlePlayerGame = false;
+    // singlePlayerGame = false;
   };
   
   const initPlayAgain = () => {
@@ -1538,10 +1544,12 @@ const gameFlow = (() => {
     pageManager.hideEndPage();
     p1ScoreSpan.classList.remove("active");
     p2ScoreSpan.classList.remove("active");
+    singlePlayerGame = pageManager.getGameType()
+    MultiplePlayerGame = (pageManager.getGameType() === false) ? true : false;
     if (singlePlayerGame){
       bindSingleGameCellEvents()
     }
-    else{
+    else if (MultiplePlayerGame) {
       bindMultiplePlayersGameCellEvents()
     }
   };
