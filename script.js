@@ -1143,15 +1143,18 @@ const pageManager = (() => {
 
     p1Form.addEventListener("submit", p1FormSubmission);
     p1Name.addEventListener("input", p1FluidValidity);
+    // p1Name.addEventListener("input", checkInputLength);
 
     p2Form.addEventListener("submit", p2FormSubmission);
     p2Name.addEventListener("input", p2FluidValidity);
+    // p2Name.addEventListener("input", checkInputLength);
 
     xRadio.addEventListener("input", radioFluidValidity);
     oRadio.addEventListener("input", radioFluidValidity);
 
     singlePForm.addEventListener("submit", singlePlayerFormSubmission);
     singlePName.addEventListener("input", singlePFluidValidity);
+    // singlePName.addEventListener("input", checkInputLength);
   };
 
   const showSinglePlayerForm = () => {
@@ -1252,7 +1255,8 @@ const pageManager = (() => {
       document.querySelector(".single-p-name-error").textContent =
         "*You must input a name";
       return;
-    } else {
+    }
+    else {
       pageManager.showBoard();
       name = singlePName.value;
       p1Symbol = "x";
