@@ -34,7 +34,7 @@ html:focus-within {
 
 /* Set core body defaults */
 body {
-  min-height: 100vh;
+  min-height: 100dvh;
   text-rendering: optimizeSpeed;
   line-height: 1.5;
 }
@@ -113,15 +113,14 @@ select {
 
 body{
     font-family: var(--ff);
-    background-color: var(--primary-clr);
+    background-color: var(--primary-light-clr);
     color: var(--fc);
-    /* height: 100vh; */
-}
+ }
 
 svg {
 	color: var(--primary-dark-clr);
-	height: 1.5rem;
-	width: 1.5rem;
+	height: var(--fs-600);
+	width: var(--fs-600);
 	margin: 0.2rem;
 }
 
@@ -131,12 +130,13 @@ svg {
     box-shadow: var(--shadow);
     /* border: var(--border); */
     border: none;
-    padding: calc(var(--padding-300) - 0.2rem) calc(var(--padding-400) - 0.2rem );
+    padding: calc(var(--padding-300) - 0.3rem) calc(var(--padding-400) - 0.6rem );
     color: var(--primary-light-clr);
     width: fit-content;
 }
 
-.btn:active{
+.btn:active,
+.btn:hover{
     background-color: var(--primary-dark-clr);
 }
 
@@ -342,6 +342,7 @@ input #p2-name{
     min-height: 50%;
 }
 
+
 .symbols-inner-container{
     display: flex;
     /* flex-direction: column; */
@@ -360,6 +361,17 @@ label {
     display: flex;
     align-items: center;
 }
+
+label svg,
+label svg,
+label svg,
+label svg,
+label svg,
+label svg{
+    width: var(--fs-500);
+    height: var(--fs-500);
+}
+
 
 input[class="x-radio"]:checked + svg,
 input[class="x-radio"]:hover + svg,
@@ -429,16 +441,7 @@ input[type="radio"] {
     animation-timing-function:linear;
 }
 
-
-.end-page{
-    display:none;
-}
-
-.end-page.active{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
+/* -----------------Board-------------------- */
 
 .board-container{
     display: none;
@@ -459,15 +462,54 @@ input[type="radio"] {
 }
 
 
-
 .cell[data-column="0"],
 .cell[data-column="1"]{
-    border-right: 0.5px solid black;
+    border-right: 0.1rem solid var(--primary-dark-clr);
 }
 
 .cell[data-row="0"],
 .cell[data-row="1"]{
-    border-bottom: 0.5px solid black;
+    border-bottom: 0.1rem solid var(--primary-dark-clr);
+}
+
+.cell svg {
+    width: var(--fs-600);
+    height: var(--fs-600);
+}
+
+.game-board-btns{
+    display: flex;
+    gap: 1rem;
+}
+
+.new-game-btn{
+    color: var(--secondary-clr);
+    background-color: var(--primary-light-clr);
+}
+
+
+.end-page{
+    border: none;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    text-align: center;
+    padding: var(--padding-600) var(--padding-400);
+    min-width: fit-content    
+}
+
+.winner-msg{
+    font-size: var(--padding-600);
+}
+
+.score-update{
+    font-size: var(--padding-500);
+    margin-bottom: 2rem;
+}
+
+.end-game-btns{
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
 }
 
 

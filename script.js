@@ -1239,11 +1239,12 @@ const pageManager = (() => {
   };
 
   const hideEndPage = ()=>{
-    document.querySelector(".end-page").classList.remove("active");
+    let endPage = document.querySelector(".end-page");
+    endPage.close();
   };
 
   const showEndPage = ()=>{
-    document.querySelector(".end-page").classList.add("active");
+    document.querySelector(".end-page").showModal();
   };
 
   const singlePlayerFormSubmission = (e) => {
@@ -1529,7 +1530,8 @@ const aiModule = (() => {
 
 //----------------Game Flow--------------------//
 const gameFlow = (() => {
-  let singlePlayerGame, cells, isXsTurn, board, p1IsX,MultiplePlayerGame;
+  let singlePlayerGame, cells, isXsTurn, board, p1IsX,MultiplePlayerGame; 
+  let winningCells;
   let turns = 0;
   const human = "x";
   const ai = "o";
@@ -1551,15 +1553,16 @@ const gameFlow = (() => {
   const initPlayAgain = () => {
     turns = 0;
     isXsTurn = true;
+    winningCells = undefined;
     gameBoard.initBoard();
     board = gameBoard.getCurrentBoard();
     cells = Array.from(document.querySelectorAll(".cell"));
     bindGeneralEventListeners();
-    pageManager.hideEndPage();
     p1ScoreSpan.classList.remove("active");
     p2ScoreSpan.classList.remove("active");
     singlePlayerGame = pageManager.getSinglePGameType();
     MultiplePlayerGame = pageManager.getMultiplePGameType();
+    pageManager.hideEndPage();
     if (singlePlayerGame){
       bindSingleGameCellEvents()
     }
@@ -1697,6 +1700,7 @@ const gameFlow = (() => {
       board[row][0] === board[row][1] &&
       board[row][0] === board[row][2]
     ) {
+      winningCells = {"row": row};
       winner(symbol);
       return true
     }else {return false}
@@ -1709,6 +1713,7 @@ const gameFlow = (() => {
       board[0][column] === board[1][column] &&
       board[0][column] === board[2][column]
     ) {
+      winningCells = {"column":column};
       winner(symbol);
       return true
     }else {return false}
@@ -1721,6 +1726,7 @@ const gameFlow = (() => {
       board[0][0] === board[1][1] &&
       board[1][1] === board[2][2]
     ) {
+      winningCells = {"diagonal": "right"};
       winner(symbol);
       return true
     }
@@ -1730,6 +1736,7 @@ const gameFlow = (() => {
       board[0][2] === board[1][1] &&
       board[1][1] === board[2][0]
     ) {
+      winningCells = {"diagonal": "left"};
       winner(symbol);
       return true
     }
@@ -1783,7 +1790,7 @@ const gameFlow = (() => {
   };
 
   const displayWinner = (winner, loser,symbol) => {
-
+    startWinningAnimation();
     if (winner === "tie") {
       let p1Name = p1.getName();
       let p2Name = p2.getName();
@@ -1845,7 +1852,14 @@ const gameFlow = (() => {
     p2ScoreSpan.classList.add("active");
   };
 
+  const startWinningAnimation = ()=>{
+    console.log(winningCells)
+  };
+
   initNewGame();
+
+
+  
 
   return {
     startSinglePlayerGame,
