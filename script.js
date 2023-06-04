@@ -1118,6 +1118,7 @@ const pageManager = (() => {
   const p2Form = document.querySelector(".p2-form");
   const p2Name = document.querySelector("#p2-name");
 
+  const gameLevelSelect= document.querySelector("#game-level-select");
   const singlePForm = document.querySelector(".single-p-form");
   const singlePName = document.querySelector("#single-p-name");
 
@@ -1154,7 +1155,10 @@ const pageManager = (() => {
 
     singlePForm.addEventListener("submit", singlePlayerFormSubmission);
     singlePName.addEventListener("input", singlePFluidValidity);
+    gameLevelSelect.addEventListener("input", selectLevelFluidValidity)
     // singlePName.addEventListener("input", checkInputLength);
+
+    document.querySelector(".close-btn-container").addEventListener("click", hideEndPage);
   };
 
   const showSinglePlayerForm = () => {
@@ -1190,6 +1194,8 @@ const pageManager = (() => {
     document.querySelector(".ai-svg").classList.remove("active");
 
     document.querySelector(".single-p-name-error").textContent ="";
+    document.querySelector(".level-select-error").textContent ="";
+
     singlePForm.reset();
     
   };
@@ -1238,21 +1244,33 @@ const pageManager = (() => {
     multiplePlayerGame = null;
   };
 
+  const showEndPage = ()=>{
+    document.querySelector(".end-page").showModal();
+  };
+  
   const hideEndPage = ()=>{
     let endPage = document.querySelector(".end-page");
     endPage.close();
   };
-
-  const showEndPage = ()=>{
-    document.querySelector(".end-page").showModal();
-  };
-
+  
   const singlePlayerFormSubmission = (e) => {
     e.preventDefault();
     let name;
     singlePlayerGame = true;
 
-    if (!singlePName.validity.valid) {
+    if(!singlePName.validity.valid && !gameLevelSelect.validity.valid){
+      document.querySelector(".level-select-error").textContent =
+      "*You must select a level";
+      document.querySelector(".single-p-name-error").textContent =
+      "*You must input a name";
+      return;
+    }
+    else if (!gameLevelSelect.validity.valid){
+      document.querySelector(".level-select-error").textContent =
+      "*You must select a level";
+      return
+    }
+    else if (!singlePName.validity.valid) {
       document.querySelector(".single-p-name-error").textContent =
         "*You must input a name";
       return;
@@ -1263,7 +1281,7 @@ const pageManager = (() => {
       name = singlePName.value;
       p1Symbol = "x";
       singlePlayerGame = true;
-      MultiplePlayerGame = false;
+      multiplePlayerGame = false;
       p1 = PlayerFactory(name, p1Symbol);
       p2 = PlayerFactory("AI", "o");
       displayPlayersOnPage(p1IsX,singlePlayerGame);
@@ -1297,7 +1315,7 @@ const pageManager = (() => {
       return
     } else {
       singlePlayerGame = false;
-      MultiplePlayerGame = true;
+      multiplePlayerGame = true;
       name = p1Name.value;
       p1Symbol = xRadio.checked ? "x" : "o";
       p1IsX = xRadio.checked ? true : false;
@@ -1358,6 +1376,12 @@ const pageManager = (() => {
     }
   };
 
+  const selectLevelFluidValidity = ()=>{
+    if (gameLevelSelect.validity.valid){
+      document.querySelector(".level-select-error").textContent ="";
+    }
+  };
+
   const getSinglePGameType = ()=>{
     return singlePlayerGame
   }
@@ -1367,7 +1391,7 @@ const pageManager = (() => {
   }
 
   const getLevel = ()=>{
-    return document.querySelector("#game-level").value
+    return gameLevelSelect.value
   };
 
   newGame();
@@ -1535,7 +1559,7 @@ const aiModule = (() => {
 
 //----------------Game Flow--------------------//
 const gameFlow = (() => {
-  let singlePlayerGame, cells, isXsTurn, board, p1IsX,MultiplePlayerGame,gameIsOver,depth; 
+  let cells, isXsTurn, board, p1IsX,multiplePlayerGame,singlePlayerGame,gameIsOver,depth; 
   let winningCells;
   let turns = 0;
   const human = "x";
@@ -1551,9 +1575,10 @@ const gameFlow = (() => {
     pageManager.clearAllData();
     p1ScoreSpan.textContent = 0;
     p2ScoreSpan.textContent = 0;
-    MultiplePlayerGame = false;
-  
-    // singlePlayerGame = false;
+    multiplePlayerGame = false;
+    singlePlayerGame = false;
+    removeEventsMultipleP();
+    removeEventsSingleP();
   };
   
   const initPlayAgain = () => {
@@ -1568,12 +1593,13 @@ const gameFlow = (() => {
     p1ScoreSpan.classList.remove("active");
     p2ScoreSpan.classList.remove("active");
     singlePlayerGame = pageManager.getSinglePGameType();
-    MultiplePlayerGame = pageManager.getMultiplePGameType();
+    multiplePlayerGame = pageManager.getMultiplePGameType();
+    console.log(singlePlayerGame , multiplePlayerGame)
     pageManager.hideEndPage();
     if (singlePlayerGame){
       bindSingleGameCellEvents()
     }
-    else if (MultiplePlayerGame) {
+    else if (multiplePlayerGame) {
       bindMultiplePlayersGameCellEvents()
     }
   };
@@ -1607,7 +1633,7 @@ const gameFlow = (() => {
     if (level === "easy"){
       depth = 2;
     }else if (level === "medium"){
-      depth = 6;
+      depth = 5;
     } else {depth = 9}
     singlePlayerGame = true;
     bindSingleGameCellEvents();

@@ -137,6 +137,7 @@ svg {
     padding: calc(var(--padding-300) - 0.3rem) calc(var(--padding-400) - 0.6rem );
     color: var(--primary-light-clr);
     width: fit-content;
+    cursor: pointer;
 }
 
 .btn:active,
@@ -154,6 +155,13 @@ svg {
     display: flex;
     align-items: center;
     justify-content: center;
+    /* width: 100%; */
+}
+
+header >svg:hover,
+.cell > svg:hover{
+    transform: scale(1.5);
+    /* opacity: 0.3; */
 }
 
 svg{
@@ -226,7 +234,7 @@ header span {
     justify-content: space-between;
     border-bottom: 0.002px solid #2829272e;
     align-items: center;
-    cursor: default;
+    cursor: pointer;
 }
 
 .p-vs-ai-container,
@@ -251,10 +259,12 @@ header span {
 .p-vs-ai-header.active,
 .p-vs-p-header.active{
     color: var(--accent-clr);
-    border-bottom: 1.5px solid var(--accent-clr);
+    border-bottom: 1.8px solid var(--accent-clr);
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
+
 }
 
 .one-p-header,
@@ -277,6 +287,13 @@ header span {
 	margin: 0.2rem;
     stroke-width: 1px;
 }
+
+
+select{
+    /* border-color: var(--primary-dark-clr); */
+    color: var(--primary-dark-clr);
+}
+
 
 .player-one-svg.active,
 .player-two-svg.active,
@@ -317,7 +334,7 @@ header span {
 }
 
 .error{
-    color: var(--accent-clr);
+    color: rgba(255, 0, 0, 0.697);
     font-size: var(--fs-300);
     animation: fadeIn 1s, shake 1s infinite;
     animation-direction: alternate;
@@ -334,6 +351,9 @@ header span {
 
 /* -------Single P Form-------- */
 
+.level-error-container{
+    margin-bottom: 2rem;
+}
 
 input #single-p-name{
     width: 100%;
@@ -395,7 +415,7 @@ input[class="o-radio"]:focus + svg{
 }
 
 #radios label {
-	position: relative;
+    position: relative;
 }
 
 input[type="radio"] {
@@ -499,14 +519,32 @@ input[type="radio"] {
     background-color: var(--primary-light-clr);
 }
 
+.new-game-btn:hover{
+    background-color: var(--secondary-clr);
+}
+
+/* ----------End Page--------- */
 
 .end-page{
+    position: relative;
     border: none;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow);
     text-align: center;
     padding: var(--padding-600) var(--padding-400);
     min-width: fit-content    
+}
+
+.close-btn-container{
+    position: absolute;
+    top:0;
+    right: 1.5%;
+    cursor: pointer;
+}
+
+.close-btn-txt{
+    color: var(--secondary-clr);
+    font-size: calc(var(--fs-300) - 0.10rem);
 }
 
 .winner-msg{

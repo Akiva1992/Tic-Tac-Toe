@@ -95,13 +95,16 @@
       <div class="p-vs-ai-container">
         <form action="" target="" class="single-p-form" novalidate>
         
-          <label for="game-level">Difficulty Level:</label>
-          <select name="levels" id="game-level" required>
+          <label for="game-level-select">Difficulty Level:</label>
+          <select name="levels" id="game-level-select" required>
             <option value="">Select option</option>
             <option value="easy">Easy</option>
             <option value="medium">Medium</option>
             <option value="hard">Hard (Impossible)</option>
         </select>
+        <div class="level-error-container error-container">
+          <span class="level-select-error error"></span>
+        </div>
           <div class="name-container">
             <h3 class="single-p-header">What should we call you?</h3>
             <input type="text" id="single-p-name" placeholder="Enter Name" name="name" maxlength="6" required />
@@ -110,7 +113,7 @@
             </div>
           </div>
           <div class="btn-container">
-            <input type="submit" id="start-game-btn1" class="btn" value="START" />
+            <input type="submit" id="start-game-btn1" class="btn" value="Start" />
           </div>
         </form>
       </div>
@@ -145,7 +148,7 @@
           <div class="error-container">
             <span class="symbol-error error"></span>
           </div>
-          <button id="next-p-btn" class="btn">NEXT</button>
+          <button id="next-p-btn" class="btn">Next</button>
         </form>
         <form action="" target="" class="p2-form" novalidate>
           <div class="name-container">
@@ -162,6 +165,7 @@
       </div>
     </div>
     <dialog class="end-page popup">
+      <div class="close-btn-container"><span class="close-btn-txt">Close</span></div>
       <h1 class="winner-msg"></h1>
       <h3 class="score-update"></h3>
       <div class="end-game-btns">
