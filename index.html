@@ -94,6 +94,14 @@
       </div>
       <div class="p-vs-ai-container">
         <form action="" target="" class="single-p-form" novalidate>
+        
+          <label for="game-level">Difficulty Level:</label>
+          <select name="levels" id="game-level" required>
+            <option value="">Select option</option>
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard (Impossible)</option>
+        </select>
           <div class="name-container">
             <h3 class="single-p-header">What should we call you?</h3>
             <input type="text" id="single-p-name" placeholder="Enter Name" name="name" maxlength="6" required />

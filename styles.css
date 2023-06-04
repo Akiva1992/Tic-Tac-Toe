@@ -115,7 +115,11 @@ body{
     font-family: var(--ff);
     background-color: var(--primary-light-clr);
     color: var(--fc);
- }
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+}
 
 svg {
 	color: var(--primary-dark-clr);
@@ -159,6 +163,10 @@ svg{
 /* ---------Header----------- */
 
 header{
+    position: absolute;
+    top: 0;
+    width: 100%;
+    background-color: var(--primary-light-clr);
     display: flex;
     font-style: italic;
     font-weight: 700;
@@ -181,13 +189,14 @@ header span {
 /* ------------------Main Content----------------------- */
 
 .main-content{
-    position: relative;
-    /* min-height: 80vh; */
+    /* position: absolute; */
+    /* top: 50%; */
+    /* left: 25% */
     display: flex;
+    justify-content: center;
+    align-content: center;
     flex-direction: column;
-    /* align-content: space-between; */
-    /* justify-content: space-between; */
-    margin: auto;
+    /* flex:1; */
 
 }
 
@@ -197,11 +206,14 @@ header span {
     display: none;
 }
 .start-screen-container{
+    /* position: absolute; */
+    /* top: 50%; */
+    /* left: 35%; */
     box-shadow: var(--shadow);
     background-color: var(--primary-light-clr);
     width: 80%;
     width: clamp(260px, 80%, 450px);
-    margin: 10% auto;
+    margin: 25% auto;
     border-radius: var(--border-radius);
     display: flex;
     flex-direction: column;

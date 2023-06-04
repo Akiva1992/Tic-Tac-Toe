@@ -1258,6 +1258,7 @@ const pageManager = (() => {
       return;
     }
     else {
+      level = getLevel()
       pageManager.showBoard();
       name = singlePName.value;
       p1Symbol = "x";
@@ -1266,7 +1267,7 @@ const pageManager = (() => {
       p1 = PlayerFactory(name, p1Symbol);
       p2 = PlayerFactory("AI", "o");
       displayPlayersOnPage(p1IsX,singlePlayerGame);
-      gameFlow.startSinglePlayerGame();
+      gameFlow.startSinglePlayerGame(level);
       singlePForm.reset();
   
     }
@@ -1364,6 +1365,10 @@ const pageManager = (() => {
   const getMultiplePGameType = ()=>{
     return multiplePlayerGame
   }
+
+  const getLevel = ()=>{
+    return document.querySelector("#game-level").value
+  };
 
   newGame();
 
@@ -1530,11 +1535,12 @@ const aiModule = (() => {
 
 //----------------Game Flow--------------------//
 const gameFlow = (() => {
-  let singlePlayerGame, cells, isXsTurn, board, p1IsX,MultiplePlayerGame; 
+  let singlePlayerGame, cells, isXsTurn, board, p1IsX,MultiplePlayerGame,gameIsOver,depth; 
   let winningCells;
   let turns = 0;
   const human = "x";
   const ai = "o";
+
   let p1ScoreSpan = document.querySelector(".p1-score-span");
   let p2ScoreSpan = document.querySelector(".p2-score-span");
   
@@ -1554,6 +1560,7 @@ const gameFlow = (() => {
     turns = 0;
     isXsTurn = true;
     winningCells = undefined;
+    gameIsOver=false;
     gameBoard.initBoard();
     board = gameBoard.getCurrentBoard();
     cells = Array.from(document.querySelectorAll(".cell"));
@@ -1596,7 +1603,12 @@ const gameFlow = (() => {
     });
   };
 
-  const startSinglePlayerGame = () => {
+  const startSinglePlayerGame = (level) => {
+    if (level === "easy"){
+      depth = 2;
+    }else if (level === "medium"){
+      depth = 6;
+    } else {depth = 9}
     singlePlayerGame = true;
     bindSingleGameCellEvents();
     isXsTurn = true;
@@ -1616,7 +1628,9 @@ const gameFlow = (() => {
         gameBoard.placeSymbol(currentRow, currentColumn, human);
         checkGame(currentRow, currentColumn, human);
         console.log(turns)
-        aiTurn();
+        if (!gameIsOver){
+          aiTurn();
+        }
       }
     }
   };
@@ -1624,7 +1638,8 @@ const gameFlow = (() => {
   const aiTurn = () => {
     if (turns<9){
       board = gameBoard.getCurrentBoard();
-      aiModule.minimax(board,9, true);
+      console.log("depth: "+depth)
+      aiModule.minimax(board,depth,true);
       let bestMove = aiModule.getBestMove();
       gameBoard.appendToBoard(bestMove[0], bestMove[1], ai);
       gameBoard.placeSymbol(bestMove[0], bestMove[1], ai);
@@ -1747,6 +1762,7 @@ const gameFlow = (() => {
   const winner = (symbol) => {
     removeEventsSingleP();
     removeEventsMultipleP();
+    gameIsOver = true;
 
     if (singlePlayerGame) {
       if (symbol === "x") {
