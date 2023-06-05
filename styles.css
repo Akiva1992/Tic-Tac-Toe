@@ -249,6 +249,7 @@ header span {
 .p-vs-ai-header,
 .p-vs-p-header{
     width: 50%;
+    cursor: pointer;
 }
 
 .p-vs-ai-header.active,
@@ -258,8 +259,6 @@ header span {
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
-
 }
 
 .one-p-header,
@@ -630,8 +629,6 @@ input[type="radio"] {
     width: 1rem;
     height: 1rem;
 } */
-
-
 
 
 
